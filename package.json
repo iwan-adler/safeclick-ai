@@ -15,7 +15,8 @@
     "test:e2e": "playwright test --project=desktop --project=mobile",
     "screenshots": "playwright test --project=shots-desktop --project=shots-mobile",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
-    "eval": "vitest run --config vitest.eval.config.mts"
+    "eval": "vitest run --config vitest.eval.config.mts",
+    "eval:baseline": "vitest run --config vitest.eval.config.mts baseline"
   },
   "dependencies": {
     "@tesseract.js-data/eng": "^1.0.0",
