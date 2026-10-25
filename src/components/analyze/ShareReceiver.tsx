@@ -2,28 +2,11 @@
 
 import { Share2, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { combineShared, type SharedFields } from "@/lib/share";
+import { combineShared, requestShare } from "@/lib/share";
+import { readPrefs } from "@/lib/simple/prefs";
 import { useAnalyzer } from "./AnalyzerProvider";
 
-interface SharePayload extends SharedFields {
-  image: File | null;
-}
-
 type Notice = { tone: "ok" | "warn"; text: string } | null;
-
-function requestShare(): Promise<SharePayload | null> {
-  return new Promise((resolve) => {
-    const timeout = setTimeout(() => resolve(null), 3000);
-    const onMessage = (event: MessageEvent) => {
-      if (event.data?.type !== "SHARE") return;
-      clearTimeout(timeout);
-      navigator.serviceWorker.removeEventListener("message", onMessage);
-      resolve(event.data.payload ?? null);
-    };
-    navigator.serviceWorker.addEventListener("message", onMessage);
-    navigator.serviceWorker.ready.then((reg) => (navigator.serviceWorker.controller ?? reg.active)?.postMessage({ type: "GET_SHARE" }));
-  });
-}
 
 /**
  * Picks up content shared to SafeClick from another app (see the share
@@ -38,7 +21,8 @@ export function ShareReceiver() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const shared = params.get("shared");
-    if (!shared) return;
+    // In simple mode the share is handed to the simple screen instead.
+    if (!shared || readPrefs().enabled) return;
     // Remove the flag so a reload does not try again.
     window.history.replaceState(null, "", window.location.pathname);
 

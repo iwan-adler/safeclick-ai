@@ -8,7 +8,7 @@ async function audit(page: Page) {
   expect(summary, summary.join("\n")).toEqual([]);
 }
 
-for (const path of ["/", "/help", "/examples", "/learn", "/guide", "/privacy"]) {
+for (const path of ["/", "/simple", "/help", "/examples", "/learn", "/guide", "/privacy"]) {
   test(`no WCAG A/AA violations on ${path}`, async ({ page }) => {
     await page.goto(path);
     await page.waitForLoadState("networkidle");
@@ -27,7 +27,7 @@ test("no WCAG A/AA violations on an analysis result", async ({ page }) => {
 
 test.describe("dark theme", () => {
   test.use({ colorScheme: "dark" });
-  for (const path of ["/", "/help", "/examples", "/learn", "/guide", "/privacy"]) {
+  for (const path of ["/", "/simple", "/help", "/examples", "/learn", "/guide", "/privacy"]) {
     test(`no WCAG A/AA violations on ${path} in dark mode`, async ({ page }) => {
       await page.goto(path);
       await page.waitForLoadState("networkidle");

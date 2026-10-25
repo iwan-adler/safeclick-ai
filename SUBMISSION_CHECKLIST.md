@@ -47,6 +47,8 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 - ✅ **Conversation:** the "wrong number" chat is flagged for trust-then-request escalation; the user stops before depositing money.
 - ✅ **Internship:** the upfront-fee offer is *High concern* with "registration fee" and "Reply only to this number" highlighted.
 
+- ✅ **Simple mode:** a pasted OTP scam turns the whole screen red with "रुकिए! यह धोखा (स्कैम) लगता है" and three plain steps; an ordinary message is never called "safe".
+
 ## Limitation to demonstrate
 
 - ✅ The innocent opening message of a slow scam ("Hi! Is this Rahul? We met at the alumni meetup…") scores *Lower apparent risk* with both rules and model. The UI says a low score is not a guarantee, and conversation mode is the answer once the request appears. Covered by a unit test.

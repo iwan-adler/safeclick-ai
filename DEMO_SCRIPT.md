@@ -50,6 +50,7 @@ It scores **Lower apparent risk**. Point at the green box: *"That's a good sign,
 - Then click **I already responded**. Tick **I sent money**: the plan puts **Call 1930** and the bank first, and the incident report masks the transaction ID automatically.
 - **Safety Guide**: point at **Saved for offline use**. *"This works with no connection, exactly when your account or phone has been compromised."*
 - Mention: on Android, install SafeClick and share a suspicious text or screenshot straight into it from your messaging app.
+- **Simple mode** (`/simple`, ideally on a phone): *"This is the screen I set up for my grandparents."* Tap **मैसेज पेस्ट करें** with a scam copied: a full red screen says *रुकिए!* with three plain steps, **सुनें** reads it aloud, and the green button calls the family member set up once.
 - **Learn**: eight practice scenarios, including a UPI QR buyer and a "CBI" video call.
 
 ## 2:50 – 3:00 · Close

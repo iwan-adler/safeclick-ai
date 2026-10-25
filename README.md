@@ -37,6 +37,7 @@ Scam messages work by creating pressure: a deadline, a threat, a prize, or a fam
 
 | Area | What it does |
 | --- | --- |
+| Simple mode (for elders) | `/simple`: a Hindi-first screen (English switch) with three huge buttons (paste, screenshot, type) and a full-colour verdict that says what to do ("रुकिए! यह धोखा (स्कैम) लगता है" / "Don't reply, don't share OTP"), never "safe". Read-aloud with the phone's own voice (fixed phrases only, never the message), one-tap call to a family member set up once, send to family, `tel:1930` after a scam. Can be set to open whenever the app starts, and messages shared into the app are checked automatically |
 | Screenshot checking | Upload, paste (Ctrl+V) or drag-and-drop an image; text is read in the browser with Tesseract (self-hosted, about 7 MB, cached for offline use); progress and cancel; text is placed in the box for review, never auto-analyzed |
 | Conversation mode | Parses chat threads ("Name: message", timestamps, or blank-line paragraphs), shows a chat-style timeline, and flags **trust-then-request** escalation: several request-free messages, often with rapport, followed by a request for money, codes, details or device access |
 | Install & share | Web app manifest, maskable icons, an install button that appears only when the browser supports it, and an Android share target (text, links and screenshots) |
@@ -150,7 +151,7 @@ demo/sample-sms.png       Fictional screenshot for the demo
 - **Business logic is separate from UI.** Everything under `src/lib` is framework-free and unit tested.
 - **State** for the current message lives in a React context ([`AnalyzerProvider`](src/components/analyze/AnalyzerProvider.tsx)) in memory only, so it survives navigation between pages but not a reload.
 - **Safe rendering.** Messages are split into text segments and rendered as React text nodes; `dangerouslySetInnerHTML` is not used anywhere. Links are displayed as text.
-- **Offline.** In production, [`public/sw.js`](public/sw.js) precaches the five pages and their hashed assets on install, serves pages network-first with cache fallback, and serves `/_next/static` and the screenshot reader (`/ocr`) cache-first. It is versioned (`CACHE_VERSION`) and cleans up old caches on activation.
+- **Offline.** In production, [`public/sw.js`](public/sw.js) precaches every page and their hashed assets on install, serves pages network-first with cache fallback, and serves `/_next/static` and the screenshot reader (`/ocr`) cache-first. It is versioned (`CACHE_VERSION`) and cleans up old caches on activation.
 - **Screenshots.** [`scripts/copy-ocr-assets.mjs`](scripts/copy-ocr-assets.mjs) copies the tesseract.js worker, the LSTM WebAssembly engine builds and the English model into `public/ocr` before every dev/build, so nothing is fetched from a CDN. Tesseract's IndexedDB cache is disabled; an automated test checks that no external request is made and no IndexedDB database is created.
 - **Sharing.** The manifest registers a `POST /share` share target. The service worker intercepts it, keeps the shared text/image in memory for at most a minute, and hands it to the page once via `postMessage`. If the service worker is not active, the server route redirects without reading the body.
 - **Security headers** ([`next.config.ts`](next.config.ts)): Content-Security-Policy with `connect-src 'self'` (the browser blocks scripts from sending data elsewhere), `'wasm-unsafe-eval'` (needed only to compile the OCR engine; JavaScript `eval` stays blocked), `frame-ancestors 'none'`, `object-src 'none'`, `nosniff`, `no-referrer`, and a restrictive Permissions-Policy.
@@ -235,6 +236,7 @@ Notes: the service worker requires HTTPS (or localhost). The headers in `next.co
 - **Offline scope.** Pages work offline only after one online visit in that browser, and only in production builds. Screenshot reading works offline once it has been used online.
 - **Screenshot reading** can misread small, stylized or low-contrast text; the text is shown for review before analysis.
 - **Conversation mode** relies on recognizable message boundaries ("Name: message" lines or blank lines between messages).
+- **Simple mode read-aloud** depends on the voices installed on the phone; some Android phones have no Hindi voice until one is downloaded in the system text-to-speech settings (the Listen button is hidden where speech is unsupported).
 - **Share target** works on Android (Chromium browsers) after installing the app; iOS does not support web share targets.
 - **Measured limits.** See [eval/RESULTS.md](eval/RESULTS.md) and [eval/README.md](eval/README.md) for detection rates, confidence intervals and caveats.
 

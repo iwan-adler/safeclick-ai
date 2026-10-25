@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { ArrowRight, Lightbulb } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { readPrefs, useSimplePrefs } from "@/lib/simple/prefs";
 import { SAFETY_TIPS } from "@/lib/data/tips";
 import { LocalBadge } from "../shell/LocalBadge";
 import { PageHeader } from "../ui/primitives";
@@ -59,6 +61,13 @@ function HowItWorks() {
 
 export function AnalyzeView() {
   const { status, runId, clear } = useAnalyzer();
+  const router = useRouter();
+  const simpleMode = useSimplePrefs().enabled;
+
+  // A phone set up for a grandparent opens the simple screen, keeping any shared content.
+  useEffect(() => {
+    if (readPrefs().enabled) router.replace(`/simple${window.location.search}`);
+  }, [router]);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const lastRun = useRef(runId);
@@ -79,6 +88,8 @@ export function AnalyzeView() {
     inputRef.current?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
     inputRef.current?.focus({ preventScroll: true });
   };
+
+  if (simpleMode) return null;
 
   return (
     <div className="page-enter">

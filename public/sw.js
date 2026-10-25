@@ -18,8 +18,8 @@
  *    once via postMessage. It is never written to a cache or sent anywhere.
  *  - Bump CACHE_VERSION to discard old caches on the next activation.
  */
-const CACHE_VERSION = "safeclick-v5";
-const PAGES = ["/", "/help", "/examples", "/learn", "/guide", "/privacy"];
+const CACHE_VERSION = "safeclick-v6";
+const PAGES = ["/", "/simple", "/help", "/examples", "/learn", "/guide", "/privacy"];
 const ASSET_PATTERN = /\/_next\/static\/[^"'\s)]+/g;
 
 async function precache() {

@@ -97,8 +97,10 @@ export default function PrivacyPage() {
                 <p>
                   <strong className="text-ink">Not stored:</strong> pasted messages, analysis results, checklist ticks and
                   learning answers. These are kept in memory only while the tab is open. SafeClick does not use
-                  localStorage, cookies or any database for them. The only thing saved in your browser is your colour theme,
-                  if you choose one other than &ldquo;System&rdquo;.
+                  localStorage, cookies or any database for them. The only things saved in your browser are your colour
+                  theme, if you choose one other than &ldquo;System&rdquo;, and Simple mode settings if you set them: the
+                  language, whether the app opens in Simple mode, and one family name and phone number for its call
+                  button. They stay on that phone.
                 </p>
                 <p>
                   <strong className="text-ink">Stored for offline use:</strong> after your first visit, a service worker saves

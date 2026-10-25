@@ -80,6 +80,7 @@ export function Sidebar() {
 }
 
 export function MobileNav() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -116,6 +117,9 @@ export function MobileNav() {
   }, [open]);
 
   const close = () => setOpen(false);
+
+  // Simple mode has its own large header; a second menu would only confuse.
+  if (pathname === "/simple") return null;
 
   return (
     <>
