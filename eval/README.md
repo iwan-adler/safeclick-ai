@@ -1,44 +1,49 @@
 # Accuracy evaluation
 
-```bash
-npm run eval
-```
+SafeClick's accuracy is measured on real, publicly licensed SMS data with a pre-registered protocol. Every number in the app and README comes from these scripts.
 
-This runs the current analysis engine over two labelled datasets and regenerates:
+| Command | What it does |
+| --- | --- |
+| `npm run eval` | Final report: [`RESULTS.md`](RESULTS.md), [`results.json`](results.json), and the in-app numbers in `src/lib/data/eval-summary.json` |
+| `npm run eval:dev` | Development loop: metrics, misses and false alarms on the **dev** split only |
+| `npm run train` | Trains the on-device classifier on dev + fictional data; writes `src/lib/analysis/model/weights.json` and [`MODEL.md`](MODEL.md) |
+| `FORCE_BASELINE=1 npm run eval:baseline` | Recomputes the v1 "before" numbers with the frozen engine in [`baseline-engine/`](baseline-engine/) |
+| `POSTHOC=1 npm run eval` | Re-measures after post-hoc changes into [`RESULTS-posthoc.md`](RESULTS-posthoc.md), leaving the official report untouched |
 
-- [`RESULTS.md`](RESULTS.md): the full report (numbers, per-category breakdown, misses, false alarms)
-- [`results.json`](results.json): machine-readable numbers
-- [`../src/lib/data/eval-summary.json`](../src/lib/data/eval-summary.json): the headline numbers shown on the in-app Privacy page
+The first run downloads three public datasets (under 1 MB) into `eval/.data/` (git-ignored). They are not redistributed.
 
-The first run downloads the UCI SMS Spam Collection (about 200 KB) into `eval/.data/`, which is git-ignored. It is not redistributed with SafeClick.
+## Headline results
 
-## Datasets
+From the pre-registered final run ([`RESULTS.md`](RESULTS.md)):
 
-| Dataset | What it is | What it is good for |
-| --- | --- | --- |
-| [`heldout.ts`](heldout.ts) | 80 fictional messages (40 scam, 40 genuine), including conversation threads and deliberately tricky genuine messages (real OTP texts, "sale ends tonight", rent reminders, sign-in alerts) | Rough detection and false-alarm rates on the kinds of scams SafeClick targets |
-| UCI SMS Spam Collection | 5,574 real SMS from around 2011, labelled spam/ham (CC BY 4.0) | False-alarm rate on ordinary personal texts written by real people |
+| Set | v1 engine | v2 (rules + on-device model) | False alarms (v2) |
+| --- | --- | --- | --- |
+| **Test-unique** (107 real scams, 2,393 genuine; held out, no near-duplicates of training data) | 14.0% | **85.0%** (95% CI 77.1–90.6%) | 0.3% (0.1–0.6%) |
+| **India** (47 scams, 40 genuine; independent author, Hinglish and Indian English) | 66.0% | **85.1%** (72.3–92.6%) | 2.5% (1 of 40) |
 
-## Protocol
+The rules alone reach 58.9% on test-unique; the model adds 26 points with no extra false alarms. Model AUC on test-unique: 0.996.
 
-1. The held-out set was written after the rules, separately from the in-app examples and unit tests.
-2. It was frozen before the first evaluation run.
-3. **The rules were not changed after seeing its results.** Changing rules to fix specific held-out misses would make those numbers meaningless.
+## How the evaluation was kept honest
 
-## Honest caveats
+1. **Pre-registration.** [`PROTOCOL.md`](PROTOCOL.md) was committed before any v2 numbers existed; the git history shows the order of every step.
+2. **Dev/test split by hash.** Rules were tuned and the model trained only on the dev half. Test messages were never inspected individually.
+3. **Near-duplicate removal.** Scam texts are often templates. The headline "test-unique" set drops test messages that closely match any dev message.
+4. **An independent India set.** Written by a different author, never used for tuning or training.
+5. **A fair "before".** The v1 engine is frozen in `baseline-engine/` and re-run on exactly the same cleaned data.
+6. **One final run.** Changes made afterwards are listed under *Post-hoc changes* in the protocol and re-measured separately.
 
-- The same author wrote the rules and the held-out set, so held-out results are likely optimistic.
-- The SMS dataset labels *spam*, not *scams*. Most of its spam is premium-rate marketing that SafeClick does not try to flag, so low detection there is expected. Its main use is measuring false alarms on genuine texts.
-- Neither dataset is a random sample of the scams people receive today.
+## What it does not show
 
-## What the first run taught us (roadmap)
+- The real-world data is mostly older UK and international SMS, not a random sample of what people in India receive today.
+- The India set is small; its confidence intervals are wide.
+- Text analysis cannot verify senders or check where links really lead.
 
-The missed held-out scams point to concrete gaps, listed here rather than patched, to keep the evaluation honest:
+## Known gaps (from the earlier v1 evaluation)
 
-- **Code requests phrased as "the 6 digit code we sent"**: the code-request rule does not recognize "N digit code".
-- **"Your account is on hold" / "verify your identity"**: these are not in the threat or credential vocabulary.
-- **A single strong lure**: an investment pitch or job offer on its own scores just under the "needs caution" threshold (20).
-- **Delivery messages with only a link and no fee**: nothing in the text is unusual enough to flag.
-- **Polite, pressure-free payment requests** (the documented demo limitation).
+The v1 fictional set's misses (`heldout.ts`) drove several v2 fixes, which is why that set no longer counts as held out: "6 digit code" requests, "account on hold", single strong lures, and delivery links without a fee.
 
-To improve these without fooling ourselves: fix the rules, then measure against a **new** held-out set written by someone else (for example, classmates writing realistic scam and genuine messages), and keep the original numbers in the history for comparison.
+## Datasets and licences
+
+- Mishra, S. & Soni, D. (2022). *SMS Phishing Dataset for Machine Learning and Pattern Recognition*. Mendeley Data, doi:10.17632/f45bkkt8pr.1. CC BY 4.0.
+- Almeida, T. A. & Hidalgo, J. M. G. (2011). *SMS Spam Collection*. UCI Machine Learning Repository. CC BY 4.0.
+- Bolewar, A. (2026). *Hinglish & English Financial Scam/Fraud Text Dataset*. Hugging Face `bolewara/hinglish-scam-text-dataset`. CC BY 4.0.
