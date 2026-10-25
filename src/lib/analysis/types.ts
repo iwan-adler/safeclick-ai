@@ -20,6 +20,7 @@ export type SignalKind =
   | "obfuscation"
   | "escalation"
   | "contact"
+  | "model"
   | "generic";
 
 /**
@@ -37,7 +38,8 @@ export type SignalFamily =
   | "lure"
   | "device"
   | "deception"
-  | "escalation";
+  | "escalation"
+  | "model";
 
 export type ConcernLevel = "lower" | "caution" | "high";
 
@@ -119,6 +121,14 @@ export interface AnalysisStats {
 
 export type AnalysisMode = "message" | "conversation";
 
+/** Output of the on-device classifier, shown even when it raises no signal. */
+export interface ModelInsight {
+  probability: number;
+  band: "low" | "moderate" | "strong";
+  /** Features that pushed the score towards "scam", strongest first. */
+  topFeatures: { label: string; weight: number }[];
+}
+
 export interface ConversationTurn {
   index: number;
   /** Speaker label as written ("Alex"), or null if none was given. */
@@ -146,6 +156,8 @@ export interface AnalysisResult {
   mode: AnalysisMode;
   /** Present only in conversation mode. */
   conversation?: ConversationInfo;
+  /** Present when the classifier ran. */
+  model?: ModelInsight;
   score: number;
   level: ConcernLevel;
   signals: Signal[];

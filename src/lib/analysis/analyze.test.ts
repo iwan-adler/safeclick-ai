@@ -197,11 +197,23 @@ describe("demo script claims (DEMO_SCRIPT.md)", () => {
     expect(evidence).toContain("reply only to this number");
   });
 
-  it("documented limitation: a polite, pressure-free payment request scores low", () => {
+  it("documented limitation: the innocent opening message of a slow scam scores low", () => {
+    const r = ok("Hi! Is this Rahul? We met at the alumni meetup last month. Hope you're doing well, are you free to chat this week?");
+    expect(r.level).toBe("lower");
+    expect(r.signals).toEqual([]);
+  });
+
+  it("the polite deposit request that v1 rules missed is now caught by the pattern model", () => {
     const r = ok(
       "Hi, it's Jordan from the housing office. Could you confirm your new move-in date and send the deposit to the account below when you get a moment? Thanks!",
     );
-    expect(r.level).toBe("lower");
+    expect(r.signals.map((s) => s.id)).toContain("pattern-model");
+    expect(r.level).not.toBe("lower");
+    const rulesOnly = analyzeMessage(
+      "Hi, it's Jordan from the housing office. Could you confirm your new move-in date and send the deposit to the account below when you get a moment? Thanks!",
+      { useModel: false },
+    );
+    expect(rulesOnly.ok && rulesOnly.level).toBe("lower");
   });
 });
 

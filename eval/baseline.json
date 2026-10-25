@@ -1,6 +1,7 @@
 {
-  "engine": "v1",
-  "commit": "b45baec",
+  "engine": "v1 (frozen copy of 631ba39)",
+  "computedAtCommit": "fbbb4c2",
+  "commit": "631ba39",
   "recordedAt": "2026-10-25",
   "sets": {
     "dev": {
@@ -43,7 +44,7 @@
         "low": 0,
         "high": 0.0015071944839569473
       },
-      "msPerMessage": 0.04560406683480455
+      "msPerMessage": 0.045972856242118554
     },
     "test": {
       "scams": 264,
@@ -85,7 +86,49 @@
         "low": 0,
         "high": 0.001455238829481284
       },
-      "msPerMessage": 0.028467772657450076
+      "msPerMessage": 0.027948387096774188
+    },
+    "testUnique": {
+      "scams": 107,
+      "hams": 2393,
+      "spams": 197,
+      "detection": {
+        "value": 0.14018691588785046,
+        "hits": 15,
+        "total": 107,
+        "low": 0.08683152059205125,
+        "high": 0.21848345140402237
+      },
+      "falseAlarm": {
+        "value": 0.002089427496865859,
+        "hits": 5,
+        "total": 2393,
+        "low": 0.0008927853464798688,
+        "high": 0.004882147798872749
+      },
+      "spamFlagged": {
+        "value": 0.030456852791878174,
+        "hits": 6,
+        "total": 197,
+        "low": 0.014031696125459774,
+        "high": 0.0648443932902788
+      },
+      "precision": 0.75,
+      "highOnScams": {
+        "value": 0.018691588785046728,
+        "hits": 2,
+        "total": 107,
+        "low": 0.005140857096348456,
+        "high": 0.06560514440489296
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2393,
+        "low": 0,
+        "high": 0.0016027759197770933
+      },
+      "msPerMessage": 0.025982869855394827
     },
     "india": {
       "scams": 47,
@@ -127,7 +170,7 @@
         "low": 0,
         "high": 0.08762453925039232
       },
-      "msPerMessage": 0.04238735632183981
+      "msPerMessage": 0.03479999999999877
     }
   }
 }

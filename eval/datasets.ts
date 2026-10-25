@@ -24,7 +24,33 @@ export type DatasetLabel = "scam" | "spam" | "ham";
 export interface DatasetMessage {
   source: "uci" | "mendeley" | "hinglish";
   label: DatasetLabel;
+  /** Cleaned text used for analysis and training. */
   text: string;
+  /**
+   * Key used for de-duplication and the dev/test split. Computed from the
+   * text exactly as first loaded (before cleaning), so cleaning never moves a
+   * message between dev and test.
+   */
+  splitKey: string;
+}
+
+/** Placeholders the UCI authors used to anonymize messages, replaced with neutral equivalents. */
+const PLACEHOLDERS: [RegExp, string][] = [
+  [/&lt;#&gt;/g, "2"],
+  [/&lt;DECIMAL&gt;/gi, "2.5"],
+  [/&lt;TIME&gt;/gi, "10:30"],
+  [/&lt;EMAIL&gt;/gi, "name@mail.example"],
+  [/&lt;URL&gt;/gi, "www.site.example"],
+  [/&lt;/g, "<"],
+  [/&gt;/g, ">"],
+  [/&amp;/g, "&"],
+];
+
+/** Removes dataset artifacts (anonymization placeholders, HTML entities) that real messages never contain. */
+export function cleanDatasetText(text: string): string {
+  let out = text;
+  for (const [pattern, value] of PLACEHOLDERS) out = out.replace(pattern, value);
+  return out.replace(/\s+/g, " ").trim();
 }
 
 export const SOURCES = {
@@ -125,21 +151,27 @@ export async function loadUci(): Promise<DatasetMessage[]> {
       const tab = line.indexOf("\t");
       const label = line.slice(0, tab);
       if (label !== "spam" && label !== "ham") throw new Error(`Unexpected UCI label: ${label}`);
-      return { source: "uci", label, text: line.slice(tab + 1) };
+      const raw = line.slice(tab + 1);
+      return { source: "uci", label, text: cleanDatasetText(raw), splitKey: normalizeText(raw) };
     });
 }
 
 export async function loadMendeley(): Promise<DatasetMessage[]> {
   const file = await cached("Dataset_5971.csv", async () => extractFromZip(await fetchBuffer(SOURCES.mendeley), "Dataset_5971.csv"));
-  // The CSV is Windows-1252 encoded; latin1 decodes it closely enough for matching.
-  const rows = parseCsv(file.toString("latin1")).slice(1);
-  return rows
-    .filter((r) => r.length >= 2 && r[1].trim())
-    .map((r) => {
+  // The file is UTF-8. Split keys come from a latin1 decode because that is
+  // how the dev/test split was first computed (see PROTOCOL.md); the
+  // analysed text uses the correct UTF-8 decode.
+  const keyRows = parseCsv(file.toString("latin1")).slice(1);
+  const textRows = parseCsv(file.toString("utf8")).slice(1);
+  if (keyRows.length !== textRows.length) throw new Error("Mendeley decode mismatch");
+  return keyRows
+    .map((r, i) => [r, textRows[i]] as const)
+    .filter(([r]) => r.length >= 2 && r[1].trim())
+    .map(([r, t]) => {
       const raw = r[0].trim().toLowerCase();
       const label: DatasetLabel = raw === "smishing" ? "scam" : raw === "spam" ? "spam" : "ham";
       if (!["smishing", "spam", "ham"].includes(raw)) throw new Error(`Unexpected Mendeley label: ${r[0]}`);
-      return { source: "mendeley", label, text: r[1].trim() };
+      return { source: "mendeley", label, text: cleanDatasetText(t[1]), splitKey: normalizeText(r[1].trim()) };
     });
 }
 
@@ -152,10 +184,15 @@ export async function loadHinglishOriginals(uci: DatasetMessage[]): Promise<Data
   const file = await cached("hinglish.json", () => fetchBuffer(SOURCES.hinglish));
   const json = JSON.parse(file.toString("utf8")) as { rows?: { text: string; label: number }[] } | { text: string; label: number }[];
   const rows = Array.isArray(json) ? json : (json.rows ?? []);
-  const inUci = new Set(uci.map((m) => normalizeText(m.text)));
+  const inUci = new Set(uci.map((m) => m.splitKey));
   return rows
     .filter((r) => !inUci.has(normalizeText(String(r.text))))
-    .map((r) => ({ source: "hinglish", label: r.label === 1 ? "scam" : "ham", text: String(r.text).trim() }));
+    .map((r) => ({
+      source: "hinglish",
+      label: r.label === 1 ? "scam" : "ham",
+      text: cleanDatasetText(String(r.text)),
+      splitKey: normalizeText(String(r.text).trim()),
+    }));
 }
 
 export function normalizeText(text: string): string {

@@ -1,5 +1,6 @@
 import {
   Banknote,
+  BrainCircuit,
   Clock,
   EyeOff,
   Gift,
@@ -32,6 +33,7 @@ export const KIND_ICON: Record<SignalKind, LucideIcon> = {
   obfuscation: ScanText,
   escalation: TrendingUp,
   contact: PhoneCall,
+  model: BrainCircuit,
   generic: MessageSquareText,
 };
 
@@ -49,6 +51,7 @@ export const KIND_LABEL: Record<SignalKind, string> = {
   obfuscation: "Disguised text",
   escalation: "Escalation",
   contact: "Unknown number",
+  model: "Pattern model",
   generic: "Generic wording",
 };
 

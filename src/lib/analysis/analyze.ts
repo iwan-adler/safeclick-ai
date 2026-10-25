@@ -3,10 +3,11 @@
  * always produces the same output, and nothing leaves the device.
  */
 import { analyzeConversation } from "./conversation";
+import { runModel } from "./model";
 import { buildRecommendations } from "./recommendations";
 import { RULES, runRule, sentenceBounds } from "./rules";
 import { scoreSignals } from "./scoring";
-import type { AnalysisMode, AnalysisOutcome, ConversationInfo, Evidence, Severity, Signal } from "./types";
+import type { AnalysisMode, AnalysisOutcome, ConversationInfo, Evidence, ModelInsight, Severity, Signal } from "./types";
 import { analyzeUrls, urlRiskWeight } from "./urls";
 
 export const MAX_MESSAGE_LENGTH = 5000;
@@ -73,6 +74,8 @@ function severityForWeight(weight: number): Severity {
 export interface AnalyzeOptions {
   /** "conversation" also parses chat turns and looks for trust-then-request escalation. */
   mode?: AnalysisMode;
+  /** Include the on-device classifier (default true). Set false for rules-only analysis. */
+  useModel?: boolean;
 }
 
 export function analyzeMessage(input: string, options: AnalyzeOptions = {}): AnalysisOutcome {
@@ -121,6 +124,13 @@ export function analyzeMessage(input: string, options: AnalyzeOptions = {}): Ana
   const obfuscation = detectObfuscation(text);
   if (obfuscation) signals.push(obfuscation);
 
+  let model: ModelInsight | undefined;
+  if (options.useModel !== false) {
+    const { insight, signal } = runModel(text);
+    model = insight;
+    if (signal) signals.push(signal);
+  }
+
   let conversation: ConversationInfo | undefined;
   if (mode === "conversation") {
     const { info, signal } = analyzeConversation(text, signals);
@@ -140,6 +150,7 @@ export function analyzeMessage(input: string, options: AnalyzeOptions = {}): Ana
     ok: true,
     mode,
     ...(conversation ? { conversation } : {}),
+    ...(model ? { model } : {}),
     score,
     level,
     signals,

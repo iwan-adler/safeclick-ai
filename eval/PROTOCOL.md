@@ -41,3 +41,7 @@ Many real scam texts are templates that differ only in numbers or a few words (f
 
 - The classifier is trained on dev (scam vs. ham; marketing spam excluded) plus the fictional examples and the v1 fictional set, which are not part of any test set.
 - Its regularization strength is chosen by 5-fold cross-validation on that training data, and its decision thresholds are chosen from out-of-fold predictions so that at most 1% (moderate) and 0.2% (strong) of genuine training messages would be flagged.
+
+## Amendment 3: India augmentation (committed before any v2 test results were computed)
+
+The first classifier flagged genuine Indian transaction alerts (found with hand-written unit-test messages, not evaluation data). A fictional, hand-written India augmentation set (`augment-india.ts`) is added to classifier training only. It is never used for evaluation, and the independent **india** set remains untouched.

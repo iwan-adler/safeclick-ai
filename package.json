@@ -17,7 +17,8 @@
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "eval": "vitest run --config vitest.eval.config.mts",
     "eval:baseline": "vitest run --config vitest.eval.config.mts baseline",
-    "eval:dev": "vitest run --config vitest.eval.config.mts dev.eval"
+    "eval:dev": "vitest run --config vitest.eval.config.mts dev.eval",
+    "train": "vitest run --config vitest.eval.config.mts train.eval"
   },
   "dependencies": {
     "@tesseract.js-data/eng": "^1.0.0",
