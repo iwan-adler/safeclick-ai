@@ -28,3 +28,16 @@ Labels: `scam` = smishing (phishing by SMS), `ham` = genuine message, `spam` = u
 3. Train the on-device classifier on **dev** only, with hyperparameters chosen by cross-validation inside dev.
 4. Run the final engine on test and india **once**, and publish the results next to the baseline, whatever they show.
 5. If a later change is made after looking at test results, the report must say so, and those test numbers stop counting as held-out.
+
+## Amendment 1 (committed before any v2 test results were computed)
+
+Many real scam texts are templates that differ only in numbers or a few words (for example the same prize text with different phone numbers). The hash split can put one copy in dev and another in test, which would flatter anything tuned on dev. To report honestly:
+
+- The **headline test number** uses **test-unique** messages only: test messages are excluded if, after removing digits, their normalized text matches a dev message, or if their word sets overlap a dev message with Jaccard similarity ≥ 0.7.
+- The full test set is still reported alongside, for completeness.
+- The split itself is unchanged, so no message already inspected in dev moves into test.
+
+## Amendment 2: classifier
+
+- The classifier is trained on dev (scam vs. ham; marketing spam excluded) plus the fictional examples and the v1 fictional set, which are not part of any test set.
+- Its regularization strength is chosen by 5-fold cross-validation on that training data, and its decision thresholds are chosen from out-of-fold predictions so that at most 1% (moderate) and 0.2% (strong) of genuine training messages would be flagged.
