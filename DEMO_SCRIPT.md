@@ -32,17 +32,17 @@ Click the **Wrong number that turns into investing** chip. The mode switches to 
 
 Open **Privacy → How accurate is it?**
 
-> "We didn't just build rules, we tested them. On 4,827 real personal text messages, SafeClick wrongly raised concern on only 0.3%. On a held-out set of 80 messages it caught 82.5% of the scams with zero false alarms. That set was written by the same author as the rules, so we treat that number as optimistic. The full report lists every scam we missed."
+> "We tested SafeClick on real SMS scams it had never seen, with an evaluation plan we committed to GitHub before running it. The first version caught 14% of new real-world scams. Today, with an India rule pack and a small on-device model, it catches 85%, while wrongly flagging only 0.3% of over two thousand genuine texts. On an independent set of Hinglish and Indian messages, it catches 85%. The full report, including confidence intervals and every caveat, is in the repo."
 
 ## 2:05 – 2:30 · An honest limitation
 
 Go back to **Analyze**, switch to **Single message**, press **Clear**, and paste:
 
-> Hi, it's Jordan from the housing office. Could you confirm your new move-in date and send the deposit to the account below when you get a moment? Thanks!
+> Hi! Is this Rahul? We met at the alumni meetup last month. Hope you're doing well, are you free to chat this week?
 
 It scores **Lower apparent risk**. Point at the green box: *"That's a good sign, but it is not a guarantee."*
 
-> "A polite request with no urgency and no link slips past the rules. SafeClick is a teaching aid, not a verdict, and every result says so."
+> "This could be the first message of a slow romance or investment scam, and on its own it is completely innocent, so neither the rules nor the model flag it. That is exactly why conversation mode exists: paste the whole chat later, and SafeClick shows when the request appears. It's a teaching aid, not a verdict."
 
 ## 2:30 – 2:50 · Phone, offline and learning (quick tour)
 

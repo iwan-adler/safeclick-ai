@@ -26,7 +26,7 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 ## Challenges and lessons learned (draft; edit in your own words)
 
 - **Explainability over cleverness.** Rules had to point at exact words, so offsets are preserved through analysis, rendering and the conversation timeline.
-- **Avoiding false alarms.** Genuine OTP messages say "do not share this code". Request-verb and protective-wording checks keep those at a score of 0, and the measured false-alarm rate on 4,827 real personal texts is 0.3%.
+- **Avoiding false alarms.** Genuine OTP messages say "do not share this code". Request-verb and protective-wording checks keep those at a score of 0, and the measured false-alarm rate on 2,393 held-out genuine texts is 0.3%.
 - **Seeing patterns across messages.** Single-message rules can't see a slow romance or investment scam. Conversation mode tracks when the first request appears after request-free, friendly messages.
 - **Private OCR.** tesseract.js loads its engine and model from a CDN by default. We self-host them, disable its IndexedDB cache, and verify in a browser test that no external request is made.
 - **Measuring honestly.** We froze a held-out set before the first run and did not tune the rules to it, even after seeing clear misses. The misses became the roadmap instead.
@@ -47,7 +47,7 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 
 ## Limitation to demonstrate
 
-- ✅ A polite, pressure-free payment request ("send the deposit to the account below") scores *Lower apparent risk*. The UI explicitly says a low score is not a guarantee. Covered by a unit test and listed in the accuracy report.
+- ✅ The innocent opening message of a slow scam ("Hi! Is this Rahul? We met at the alumni meetup…") scores *Lower apparent risk* with both rules and model. The UI says a low score is not a guarantee, and conversation mode is the answer once the request appears. Covered by a unit test.
 
 ## Evidence for judges
 
