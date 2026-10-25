@@ -29,7 +29,9 @@ Scam messages work by creating pressure: a deadline, a threat, a prize, or a fam
 3. **Learn**: eight interactive scenarios (including a UPI QR buyer and a "CBI" video call) where you choose how to respond and get immediate feedback on why the safest option works.
 4. **Safety Guide**: step-by-step guidance and checklists for suspicious messages, account compromise, OTP/password protection, financial fraud, lost devices and personal safety, with India's verified reporting channels (1930, cybercrime.gov.in, Chakshu). Available offline after the first visit.
 5. **Privacy & Limitations**: an honest explanation of how analysis works, what is (not) stored, measured accuracy, and where the tool's judgment ends.
-6. **Install and share** (Android): SafeClick installs as an app and appears in the system share sheet, so a suspicious text or screenshot can be sent to it in two taps. Shared content is handled on the device by the service worker.
+6. **Get help**: "I already clicked or paid" emergency mode with an urgency-ordered action plan (India: call 1930 first, `##002#` after a call-forwarding code) and an incident report builder for banks and police that masks card numbers and removes OTPs.
+7. **Warn family**: turn a result into a shareable image or WhatsApp text in English or Hindi, made on the device.
+8. **Install and share** (Android): SafeClick installs as an app and appears in the system share sheet, so a suspicious text or screenshot can be sent to it in two taps. Shared content is handled on the device by the service worker.
 
 ## Features
 
@@ -46,8 +48,12 @@ Scam messages work by creating pressure: a deadline, a threat, a prize, or a fam
 | Examples | Category filters, keyword search, empty state with reset, expected warning chips, expandable safe next step, "Analyze this example" |
 | Learning mode | Eight scenarios, three options each, immediate feedback, progress bar and step navigation, previous/next/skip, final summary with review links, restart |
 | Safety guide | Keyboard-accessible tabs, expandable steps, checklists with progress, copy and `.txt` download, India's verified reporting channels and no invented numbers, verified offline indicator |
+| Emergency mode | Nine "what happened" options, region switch (India / elsewhere), plan grouped into Do now / Today / Next few days with checkboxes, `tel:1930` call button, incident report with masking, copy / download / print-to-PDF |
+| Link X-ray | Each link split into protocol, ignored user info, subdomains, **real domain** and path; punycode decoded; look-alike characters named with script and code point |
+| Warn-family card | Canvas image (1080x1350) with level, top signs and steps in English or Hindi, auto-fitting text, optional masked excerpt (off by default), share sheet / PNG / text |
+| Themes | Light, dark and system themes; WCAG AA contrast verified in both |
 | Privacy page | Expandable explanations; the scoring table is generated from the live rule definitions |
-| Accessibility | Semantic landmarks, skip link, labelled controls, `aria-expanded`/`aria-pressed`/`aria-current`, focus-visible styles, focus-trapped mobile menu with Escape support, live regions for results and progress, `prefers-reduced-motion` support |
+| Accessibility | Semantic landmarks, skip link, labelled controls, `aria-expanded`/`aria-pressed`/`aria-current`, focus-visible styles, focus-trapped mobile menu with Escape support, live regions for results and progress, `prefers-reduced-motion` support. **Automated axe-core audit: zero WCAG 2.1 A/AA violations on every page, in light and dark, desktop and mobile** |
 
 ## How the analysis works
 

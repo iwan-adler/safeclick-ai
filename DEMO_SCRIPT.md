@@ -44,11 +44,13 @@ It scores **Lower apparent risk**. Point at the green box: *"That's a good sign,
 
 > "This could be the first message of a slow romance or investment scam, and on its own it is completely innocent, so neither the rules nor the model flag it. That is exactly why conversation mode exists: paste the whole chat later, and SafeClick shows when the request appears. It's a teaching aid, not a verdict."
 
-## 2:30 – 2:50 · Phone, offline and learning (quick tour)
+## 2:30 – 2:50 · When it's too late to pause (quick tour)
 
+- On a high-concern result, click **Warn family** → **हिन्दी** to show the Hindi warning card for a parent's WhatsApp.
+- Then click **I already responded**. Tick **I sent money**: the plan puts **Call 1930** and the bank first, and the incident report masks the transaction ID automatically.
 - **Safety Guide**: point at **Saved for offline use**. *"This works with no connection, exactly when your account or phone has been compromised."*
 - Mention: on Android, install SafeClick and share a suspicious text or screenshot straight into it from your messaging app.
-- **Learn**: six practice scenarios with instant feedback.
+- **Learn**: eight practice scenarios, including a UPI QR buyer and a "CBI" video call.
 
 ## 2:50 – 3:00 · Close
 
