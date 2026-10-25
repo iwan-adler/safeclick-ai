@@ -16,6 +16,18 @@ export const metadata: Metadata = {
   description:
     "A privacy-first scam-awareness companion. Check suspicious messages locally, understand the warning signs, and practise safer choices.",
   applicationName: "SafeClick AI",
+  // Absolute base for social preview URLs. Vercel sets the production URL at build time.
+  metadataBase: new URL(
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000",
+  ),
+  openGraph: {
+    title: "SafeClick AI: Think before you click",
+    description:
+      "Check suspicious messages, screenshots and chats on your device, with explainable warnings in English, Hinglish and Hindi.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "SafeClick AI: Think before you click" }],
+    type: "website",
+  },
+  twitter: { card: "summary_large_image", images: ["/og.png"] },
 };
 
 export const viewport: Viewport = {
