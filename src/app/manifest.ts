@@ -36,6 +36,7 @@ export default function manifest(): MetadataRoute.Manifest {
     },
     shortcuts: [
       { name: "Check a message", url: "/" },
+      { name: "I already clicked or paid", short_name: "Get help", url: "/help" },
       { name: "Safety Guide", short_name: "Guide", url: "/guide" },
     ],
   };

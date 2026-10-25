@@ -153,6 +153,26 @@
   }
 }
 
+/* Printing from the help page prints only the incident report. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #incident-report,
+  #incident-report * {
+    visibility: visible;
+  }
+  #incident-report {
+    position: absolute;
+    inset: 0 auto auto 0;
+    max-height: none;
+    overflow: visible;
+    border: 0;
+    background: white;
+    font-size: 11pt;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

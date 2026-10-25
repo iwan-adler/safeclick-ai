@@ -1,10 +1,11 @@
 "use client";
 
-import { Banknote, CircleCheck, Clock, KeyRound, Link2, RefreshCw, RotateCcw, ScanSearch } from "lucide-react";
+import Link from "next/link";
+import { Banknote, CircleCheck, Clock, KeyRound, Link2, RefreshCw, RotateCcw, ScanSearch, Siren } from "lucide-react";
 import { useCallback, useState } from "react";
 import { buildSummaryText, LEVEL_COPY, type AnalysisResult } from "@/lib/analysis";
 import { CopyButton } from "../ui/CopyButton";
-import { Button } from "../ui/primitives";
+import { Button, buttonClass } from "../ui/primitives";
 import { ActionChecklist } from "./ActionChecklist";
 import { useAnalyzer } from "./AnalyzerProvider";
 import { AnnotatedMessage, type FlashTarget } from "./AnnotatedMessage";
@@ -99,6 +100,12 @@ function ResultView({ result, text, onAnalyzeAnother }: { result: AnalysisResult
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
           Check another message
         </Button>
+        {result.level !== "lower" && (
+          <Link href="/help" className={buttonClass("ghost", "sm", "text-coral-700 hover:bg-coral-50 hover:text-coral-700")}>
+            <Siren aria-hidden="true" className="h-4 w-4" />
+            I already responded
+          </Link>
+        )}
       </div>
 
       {result.conversation && (
