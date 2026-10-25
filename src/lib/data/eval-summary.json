@@ -1,0 +1,15 @@
+{
+  "generatedAt": "2026-10-20",
+  "heldout": {
+    "positives": 40,
+    "negatives": 40,
+    "detectionRate": 0.825,
+    "falseAlarmRate": 0
+  },
+  "sms": {
+    "positives": 747,
+    "negatives": 4827,
+    "detectionRate": 0.0669,
+    "falseAlarmRate": 0.0031
+  }
+}

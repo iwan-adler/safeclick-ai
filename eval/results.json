@@ -1,0 +1,793 @@
+{
+  "generatedAt": "2026-10-20",
+  "heldout": {
+    "metrics": {
+      "positives": 40,
+      "negatives": 40,
+      "truePositives": 33,
+      "falseNegatives": 7,
+      "falsePositives": 0,
+      "trueNegatives": 40,
+      "detectionRate": 0.825,
+      "falseAlarmRate": 0,
+      "precision": 1,
+      "highOnPositives": 0.225,
+      "highOnNegatives": 0,
+      "msPerMessage": 0.3714350000000003
+    },
+    "results": [
+      {
+        "id": "s01",
+        "positive": true,
+        "category": "Banking",
+        "level": "high",
+        "score": 54,
+        "signals": [
+          "credential-request",
+          "personal-info",
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s02",
+        "positive": true,
+        "category": "Banking",
+        "level": "lower",
+        "score": 10,
+        "signals": [
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s03",
+        "positive": true,
+        "category": "Delivery",
+        "level": "caution",
+        "score": 44,
+        "signals": [
+          "payment-request",
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s04",
+        "positive": true,
+        "category": "Delivery",
+        "level": "caution",
+        "score": 36,
+        "signals": [
+          "payment-request",
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s05",
+        "positive": true,
+        "category": "Tax",
+        "level": "caution",
+        "score": 49,
+        "signals": [
+          "personal-info",
+          "unexpected-benefit",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s06",
+        "positive": true,
+        "category": "Tax",
+        "level": "high",
+        "score": 56,
+        "signals": [
+          "payment-request",
+          "account-threat",
+          "urgency",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s07",
+        "positive": true,
+        "category": "Jobs",
+        "level": "lower",
+        "score": 16,
+        "signals": [
+          "unexpected-benefit"
+        ]
+      },
+      {
+        "id": "s08",
+        "positive": true,
+        "category": "Jobs",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s09",
+        "positive": true,
+        "category": "Family",
+        "level": "caution",
+        "score": 49,
+        "signals": [
+          "payment-request",
+          "bypass-verification"
+        ]
+      },
+      {
+        "id": "s10",
+        "positive": true,
+        "category": "Family",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s11",
+        "positive": true,
+        "category": "Tech support",
+        "level": "caution",
+        "score": 46,
+        "signals": [
+          "remote-access",
+          "urgency"
+        ]
+      },
+      {
+        "id": "s12",
+        "positive": true,
+        "category": "Accounts",
+        "level": "high",
+        "score": 77,
+        "signals": [
+          "credential-request",
+          "account-threat",
+          "urgency",
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s13",
+        "positive": true,
+        "category": "Accounts",
+        "level": "caution",
+        "score": 20,
+        "signals": [
+          "account-threat"
+        ]
+      },
+      {
+        "id": "s14",
+        "positive": true,
+        "category": "Prizes",
+        "level": "high",
+        "score": 55,
+        "signals": [
+          "payment-request",
+          "unexpected-benefit",
+          "urgency"
+        ]
+      },
+      {
+        "id": "s15",
+        "positive": true,
+        "category": "Prizes",
+        "level": "caution",
+        "score": 36,
+        "signals": [
+          "personal-info",
+          "unexpected-benefit"
+        ]
+      },
+      {
+        "id": "s16",
+        "positive": true,
+        "category": "Workplace",
+        "level": "high",
+        "score": 71,
+        "signals": [
+          "payment-request",
+          "secrecy",
+          "urgency",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s17",
+        "positive": true,
+        "category": "Workplace",
+        "level": "caution",
+        "score": 43,
+        "signals": [
+          "credential-request",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s18",
+        "positive": true,
+        "category": "Utilities",
+        "level": "caution",
+        "score": 29,
+        "signals": [
+          "bypass-verification",
+          "urgency"
+        ]
+      },
+      {
+        "id": "s19",
+        "positive": true,
+        "category": "Marketplace",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s20",
+        "positive": true,
+        "category": "Rental",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s21",
+        "positive": true,
+        "category": "Investment",
+        "level": "lower",
+        "score": 18,
+        "signals": [
+          "investment-pitch"
+        ]
+      },
+      {
+        "id": "s22",
+        "positive": true,
+        "category": "Subscription",
+        "level": "caution",
+        "score": 30,
+        "signals": [
+          "urgency",
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s23",
+        "positive": true,
+        "category": "Loans",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s24",
+        "positive": true,
+        "category": "Charity",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s25",
+        "positive": true,
+        "category": "Accounts",
+        "level": "caution",
+        "score": 30,
+        "signals": [
+          "credential-request"
+        ]
+      },
+      {
+        "id": "s26",
+        "positive": true,
+        "category": "Shopping",
+        "level": "high",
+        "score": 53,
+        "signals": [
+          "suspicious-link",
+          "personal-info"
+        ]
+      },
+      {
+        "id": "s27",
+        "positive": true,
+        "category": "Tech support",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "remote-access"
+        ]
+      },
+      {
+        "id": "s28",
+        "positive": true,
+        "category": "Government",
+        "level": "caution",
+        "score": 49,
+        "signals": [
+          "personal-info",
+          "unexpected-benefit",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s29",
+        "positive": true,
+        "category": "Romance",
+        "level": "high",
+        "score": 50,
+        "signals": [
+          "payment-request",
+          "trust-then-request"
+        ]
+      },
+      {
+        "id": "s30",
+        "positive": true,
+        "category": "Investment",
+        "level": "high",
+        "score": 69,
+        "signals": [
+          "payment-request",
+          "trust-then-request",
+          "investment-pitch"
+        ]
+      },
+      {
+        "id": "s31",
+        "positive": true,
+        "category": "Jobs",
+        "level": "caution",
+        "score": 39,
+        "signals": [
+          "payment-request",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s32",
+        "positive": true,
+        "category": "Marketplace",
+        "level": "caution",
+        "score": 47,
+        "signals": [
+          "personal-info",
+          "channel-switch",
+          "impersonation"
+        ]
+      },
+      {
+        "id": "s33",
+        "positive": true,
+        "category": "Banking",
+        "level": "lower",
+        "score": 15,
+        "signals": [
+          "suspicious-link",
+          "generic-greeting"
+        ]
+      },
+      {
+        "id": "s34",
+        "positive": true,
+        "category": "Delivery",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "s35",
+        "positive": true,
+        "category": "Accounts",
+        "level": "caution",
+        "score": 20,
+        "signals": [
+          "suspicious-link"
+        ]
+      },
+      {
+        "id": "s36",
+        "positive": true,
+        "category": "Family",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "payment-request"
+        ]
+      },
+      {
+        "id": "s37",
+        "positive": true,
+        "category": "Prizes",
+        "level": "lower",
+        "score": 16,
+        "signals": [
+          "unexpected-benefit"
+        ]
+      },
+      {
+        "id": "s38",
+        "positive": true,
+        "category": "Jobs",
+        "level": "high",
+        "score": 61,
+        "signals": [
+          "payment-request",
+          "personal-info",
+          "unexpected-benefit"
+        ]
+      },
+      {
+        "id": "s39",
+        "positive": true,
+        "category": "QR",
+        "level": "caution",
+        "score": 26,
+        "signals": [
+          "account-threat",
+          "urgency"
+        ]
+      },
+      {
+        "id": "s40",
+        "positive": true,
+        "category": "Subtle",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l01",
+        "positive": false,
+        "category": "OTP",
+        "level": "lower",
+        "score": 14,
+        "signals": [
+          "urgency"
+        ]
+      },
+      {
+        "id": "l02",
+        "positive": false,
+        "category": "OTP",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l03",
+        "positive": false,
+        "category": "Banking",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l04",
+        "positive": false,
+        "category": "Banking",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l05",
+        "positive": false,
+        "category": "Delivery",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l06",
+        "positive": false,
+        "category": "Delivery",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l07",
+        "positive": false,
+        "category": "Appointments",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l08",
+        "positive": false,
+        "category": "Marketing",
+        "level": "lower",
+        "score": 14,
+        "signals": [
+          "urgency"
+        ]
+      },
+      {
+        "id": "l09",
+        "positive": false,
+        "category": "Marketing",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l10",
+        "positive": false,
+        "category": "Friends",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l11",
+        "positive": false,
+        "category": "Friends",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l12",
+        "positive": false,
+        "category": "Friends",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l13",
+        "positive": false,
+        "category": "Family",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l14",
+        "positive": false,
+        "category": "Work",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l15",
+        "positive": false,
+        "category": "Work",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l16",
+        "positive": false,
+        "category": "University",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l17",
+        "positive": false,
+        "category": "University",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l18",
+        "positive": false,
+        "category": "Rent",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l19",
+        "positive": false,
+        "category": "Utilities",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l20",
+        "positive": false,
+        "category": "Accounts",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l21",
+        "positive": false,
+        "category": "Accounts",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l22",
+        "positive": false,
+        "category": "Receipts",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l23",
+        "positive": false,
+        "category": "Receipts",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l24",
+        "positive": false,
+        "category": "Health",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l25",
+        "positive": false,
+        "category": "Travel",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l26",
+        "positive": false,
+        "category": "Travel",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l27",
+        "positive": false,
+        "category": "Jobs",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l28",
+        "positive": false,
+        "category": "Jobs",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l29",
+        "positive": false,
+        "category": "Marketplace",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l30",
+        "positive": false,
+        "category": "Community",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l31",
+        "positive": false,
+        "category": "School",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l32",
+        "positive": false,
+        "category": "Gym",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l33",
+        "positive": false,
+        "category": "Banking",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l34",
+        "positive": false,
+        "category": "Friends",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l35",
+        "positive": false,
+        "category": "Family",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l36",
+        "positive": false,
+        "category": "Work",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l37",
+        "positive": false,
+        "category": "Splitting bills",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l38",
+        "positive": false,
+        "category": "Security",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l39",
+        "positive": false,
+        "category": "Delivery",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      },
+      {
+        "id": "l40",
+        "positive": false,
+        "category": "Events",
+        "level": "lower",
+        "score": 0,
+        "signals": []
+      }
+    ]
+  },
+  "sms": {
+    "metrics": {
+      "positives": 747,
+      "negatives": 4827,
+      "truePositives": 50,
+      "falseNegatives": 697,
+      "falsePositives": 15,
+      "trueNegatives": 4812,
+      "detectionRate": 0.06693440428380187,
+      "falseAlarmRate": 0.003107520198881293,
+      "precision": 0.7692307692307693,
+      "highOnPositives": 0,
+      "highOnNegatives": 0,
+      "msPerMessage": 0.03651431646932185
+    }
+  }
+}

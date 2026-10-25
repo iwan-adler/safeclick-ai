@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/*
+ * SafeClick AI design tokens.
+ * Blue is the brand accent; neutrals carry most surfaces. Semantic colors
+ * (mint / amber / coral) are reserved for concern levels and feedback.
+ */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Brand: cobalt blue */
+  --color-brand-50: #f0f3ff;
+  --color-brand-100: #e1e7ff;
+  --color-brand-200: #c5d0ff;
+  --color-brand-400: #6f8bff;
+  --color-brand-500: #4a6bff;
+  --color-brand-600: #2f54eb;
+  --color-brand-700: #2343c9;
+
+  /* Deep navy for navigation and emphasis */
+  --color-navy-700: #26356b;
+  --color-navy-800: #18234d;
+  --color-navy-900: #0f1838;
+  --color-navy-950: #0a1029;
+
+  /* Neutrals */
+  --color-canvas: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-sunken: #f1f3f8;
+  --color-ink: #0f172a;
+  --color-ink-muted: #475569;
+  --color-ink-subtle: #5f6b80;
+  --color-line: #e3e7ef;
+  --color-line-strong: #cdd4e1;
+
+  /* Soft lavender: learning + informational accents */
+  --color-lavender-50: #f5f3ff;
+  --color-lavender-100: #ebe7ff;
+  --color-lavender-200: #d9d2fe;
+  --color-lavender-500: #7c6cf2;
+  --color-lavender-700: #5443c8;
+
+  /* Mint: lower concern + success */
+  --color-mint-50: #ecfaf3;
+  --color-mint-100: #d3f4e3;
+  --color-mint-200: #a8e8c8;
+  --color-mint-500: #1fa975;
+  --color-mint-700: #0b7550;
+
+  /* Amber: caution */
+  --color-amber-50: #fff8eb;
+  --color-amber-100: #feeecb;
+  --color-amber-200: #fbd88f;
+  --color-amber-500: #ee9a1a;
+  --color-amber-700: #9a5705;
+
+  /* Coral: high concern + destructive */
+  --color-coral-50: #fef2f1;
+  --color-coral-100: #fde0dd;
+  --color-coral-200: #f8bdb7;
+  --color-coral-500: #e2554c;
+  --color-coral-700: #b2342c;
+
+  --radius-card: 16px;
+  --radius-control: 10px;
+
+  --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 3px rgb(15 23 42 / 0.05);
+  --shadow-raised: 0 10px 24px -8px rgb(15 23 42 / 0.12), 0 2px 6px rgb(15 23 42 / 0.05);
+  --shadow-focus: 0 0 0 4px rgb(47 84 235 / 0.16);
+
+  --animate-fade-up: fade-up 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-fade-in: fade-in 220ms ease-out both;
+  --animate-pop: pop 360ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  --animate-scan: scan 1.1s ease-in-out infinite;
+  --animate-flash: flash 1.2s ease-out;
+  --animate-pulse-dot: pulse-dot 2.4s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop {
+    0% { transform: scale(0.6); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes scan {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(250%); }
+  }
+  @keyframes flash {
+    0% { box-shadow: 0 0 0 0 rgb(47 84 235 / 0.55); }
+    100% { box-shadow: 0 0 0 10px rgb(47 84 235 / 0); }
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgb(31 169 117 / 0.45); }
+    50% { box-shadow: 0 0 0 5px rgb(31 169 117 / 0); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  ::selection {
+    background: var(--color-brand-100);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+  }
+  button:not(:disabled),
+  [role="button"],
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-ink-subtle);
+  }
+  .page-enter {
+    animation: var(--animate-fade-up);
+  }
+  /* Subtle dotted grid used behind empty states. */
+  .dot-grid {
+    background-image: radial-gradient(rgb(15 23 42 / 0.07) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
