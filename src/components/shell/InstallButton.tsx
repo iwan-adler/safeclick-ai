@@ -42,14 +42,14 @@ export function InstallButton({ className }: { className?: string }) {
         setPromptEvent(null);
       }}
       className={cn(
-        "flex w-full items-center gap-2.5 rounded-xl bg-brand-600 px-3 py-2.5 text-left text-[13px] font-medium text-white hover:bg-brand-700",
+        "flex w-full items-center gap-2.5 rounded-xl bg-[#2f54eb] px-3 py-2.5 text-left text-[13px] font-medium text-white hover:bg-[#2343c9]",
         className,
       )}
     >
       <MonitorDown aria-hidden="true" className="h-4 w-4 shrink-0" />
       <span className="flex flex-col">
         Install SafeClick
-        <span className="text-[11px] font-normal text-brand-100">Share messages to it from other apps</span>
+        <span className="text-[11px] font-normal text-white/80">Share messages to it from other apps</span>
       </span>
     </button>
   );

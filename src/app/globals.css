@@ -18,6 +18,9 @@
   --color-brand-600: #2f54eb;
   --color-brand-700: #2343c9;
 
+  --color-primary: #2f54eb;
+  --color-primary-hover: #2343c9;
+
   /* Deep navy for navigation and emphasis */
   --color-navy-700: #26356b;
   --color-navy-800: #18234d;
@@ -100,6 +103,112 @@
     0%, 100% { box-shadow: 0 0 0 0 rgb(31 169 117 / 0.45); }
     50% { box-shadow: 0 0 0 5px rgb(31 169 117 / 0); }
   }
+}
+
+/*
+ * Dark theme: follows the system setting unless the person picked a theme
+ * (stored as data-theme on <html> by the theme switch).
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-canvas: #0a0f1e;
+    --color-surface: #111a2e;
+    --color-sunken: #18233c;
+    --color-ink: #e8edf6;
+    --color-ink-muted: #b0bccf;
+    --color-ink-subtle: #8e9bb3;
+    --color-line: #253150;
+    --color-line-strong: #34436a;
+
+    --color-primary: #2f54eb;
+    --color-primary-hover: #2a4bd6;
+    --color-brand-50: #141f42;
+    --color-brand-100: #1c2a58;
+    --color-brand-200: #2b3f7f;
+    --color-brand-400: #8aa2ff;
+    --color-brand-500: #7a94ff;
+    --color-brand-600: #8aa2ff;
+    --color-brand-700: #b3c3ff;
+
+    --color-lavender-50: #1b1838;
+    --color-lavender-100: #262250;
+    --color-lavender-200: #383270;
+    --color-lavender-500: #a297ff;
+    --color-lavender-700: #c8c0ff;
+
+    --color-mint-50: #0e2a20;
+    --color-mint-100: #133829;
+    --color-mint-200: #1c5440;
+    --color-mint-500: #2fc48d;
+    --color-mint-700: #74e2b6;
+
+    --color-amber-50: #2a2010;
+    --color-amber-100: #3a2c12;
+    --color-amber-200: #5a4317;
+    --color-amber-500: #f2aa3c;
+    --color-amber-700: #f6c56f;
+
+    --color-coral-50: #2e1515;
+    --color-coral-100: #3e1b1b;
+    --color-coral-200: #5e2828;
+    --color-coral-500: #f06a62;
+    --color-coral-700: #ff9f98;
+
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px rgb(0 0 0 / 0.25);
+    --shadow-raised: 0 10px 24px -8px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.3);
+    --shadow-focus: 0 0 0 4px rgb(122 148 255 / 0.28);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-canvas: #0a0f1e;
+  --color-surface: #111a2e;
+  --color-sunken: #18233c;
+  --color-ink: #e8edf6;
+  --color-ink-muted: #b0bccf;
+  --color-ink-subtle: #8e9bb3;
+  --color-line: #253150;
+  --color-line-strong: #34436a;
+
+  --color-primary: #2f54eb;
+  --color-primary-hover: #2a4bd6;
+  --color-brand-50: #141f42;
+  --color-brand-100: #1c2a58;
+  --color-brand-200: #2b3f7f;
+  --color-brand-400: #8aa2ff;
+  --color-brand-500: #7a94ff;
+  --color-brand-600: #8aa2ff;
+  --color-brand-700: #b3c3ff;
+
+  --color-lavender-50: #1b1838;
+  --color-lavender-100: #262250;
+  --color-lavender-200: #383270;
+  --color-lavender-500: #a297ff;
+  --color-lavender-700: #c8c0ff;
+
+  --color-mint-50: #0e2a20;
+  --color-mint-100: #133829;
+  --color-mint-200: #1c5440;
+  --color-mint-500: #2fc48d;
+  --color-mint-700: #74e2b6;
+
+  --color-amber-50: #2a2010;
+  --color-amber-100: #3a2c12;
+  --color-amber-200: #5a4317;
+  --color-amber-500: #f2aa3c;
+  --color-amber-700: #f6c56f;
+
+  --color-coral-50: #2e1515;
+  --color-coral-100: #3e1b1b;
+  --color-coral-200: #5e2828;
+  --color-coral-500: #f06a62;
+  --color-coral-700: #ff9f98;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.3), 0 1px 3px rgb(0 0 0 / 0.25);
+  --shadow-raised: 0 10px 24px -8px rgb(0 0 0 / 0.5), 0 2px 6px rgb(0 0 0 / 0.3);
+  --shadow-focus: 0 0 0 4px rgb(122 148 255 / 0.28);
+  color-scheme: dark;
 }
 
 @layer base {

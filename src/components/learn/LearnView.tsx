@@ -120,7 +120,7 @@ function Summary({ state, onRestart, onReview }: { state: QuizState; onRestart: 
       <div className="flex flex-col items-center text-center">
         <div className="relative h-24 w-24">
           <svg viewBox="0 0 80 80" className="h-full w-full -rotate-90" aria-hidden="true">
-            <circle cx="40" cy="40" r={R} fill="none" stroke="#eef0f5" strokeWidth="8" />
+            <circle cx="40" cy="40" r={R} fill="none" stroke="var(--color-sunken)" strokeWidth="8" />
             <circle
               cx="40"
               cy="40"

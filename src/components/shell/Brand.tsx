@@ -21,7 +21,7 @@ export function Wordmark({ inverted = false }: { inverted?: boolean }) {
       <BrandMark />
       <span className="flex flex-col leading-none">
         <span className={cn("text-[15px] font-semibold tracking-[-0.01em]", inverted ? "text-white" : "text-ink")}>
-          SafeClick <span className={inverted ? "text-brand-200" : "text-brand-600"}>AI</span>
+          SafeClick <span className={inverted ? "text-[#c5d0ff]" : "text-brand-600"}>AI</span>
         </span>
         <span className={cn("mt-1 text-[11px]", inverted ? "text-slate-400" : "text-ink-subtle")}>
           Pause. Understand. Stay Safe.

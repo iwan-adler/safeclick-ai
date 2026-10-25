@@ -36,7 +36,7 @@ function SafetyTip() {
 }
 
 function HowItWorks() {
-  const steps = ["Paste a message", "Rules check it in your browser", "Review signs and next steps"];
+  const steps = ["Paste a message or add a screenshot", "Rules and a small model check it on your device", "Review signs and next steps"];
   return (
     <div className="card p-5">
       <h2 className="text-[13px] font-semibold text-ink">How it works</h2>

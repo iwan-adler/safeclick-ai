@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "../ui/primitives";
 import { Wordmark } from "./Brand";
 import { InstallButton } from "./InstallButton";
+import { ThemeToggle } from "./ThemeToggle";
 import { LocalBadge } from "./LocalBadge";
 import { isActive, NAV_ITEMS } from "./nav";
 
@@ -30,13 +31,13 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
               <span
                 aria-hidden="true"
                 className={cn(
-                  "absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-brand-400 transition-opacity",
+                  "absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-[#6f8bff] transition-opacity",
                   active ? "opacity-100" : "opacity-0",
                 )}
               />
               <Icon
                 aria-hidden="true"
-                className={cn("h-[18px] w-[18px]", active ? "text-brand-200" : "text-slate-400 group-hover:text-slate-200")}
+                className={cn("h-[18px] w-[18px]", active ? "text-[#c5d0ff]" : "text-slate-400 group-hover:text-slate-200")}
               />
               <span className="flex flex-col">
                 <span className="text-sm font-medium">{label}</span>
@@ -57,7 +58,7 @@ export function Sidebar() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(120%_80%_at_0%_0%,rgb(74_107_255/0.22),transparent_70%)]"
       />
-      <Link href="/" className="relative mb-8 rounded-lg px-2 py-1" aria-label="SafeClick AI home">
+      <Link href="/" className="relative mb-8 rounded-lg px-2 py-1">
         <Wordmark inverted />
       </Link>
       <nav aria-label="Main" className="relative flex-1">
@@ -66,6 +67,10 @@ export function Sidebar() {
       <InstallButton className="relative mt-6" />
       <div className="relative mt-3 rounded-2xl bg-white/[0.04] p-3 ring-1 ring-inset ring-white/[0.06]">
         <LocalBadge />
+        <div className="mt-2.5 flex items-center justify-between px-1">
+          <span className="text-[11px] text-slate-400">Theme</span>
+          <ThemeToggle />
+        </div>
         <p className="mt-2.5 px-1 text-[11px] leading-relaxed text-slate-400">
           No account, no tracking. Built for SafeSpace Hacks as an educational tool.
         </p>
@@ -115,7 +120,7 @@ export function MobileNav() {
   return (
     <>
       <div className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-canvas/90 px-4 backdrop-blur lg:hidden">
-        <Link href="/" aria-label="SafeClick AI home" className="rounded-lg">
+        <Link href="/" className="rounded-lg">
           <Wordmark />
         </Link>
         <button
@@ -162,6 +167,10 @@ export function MobileNav() {
               <NavList onNavigate={close} />
             </nav>
             <InstallButton className="mt-6" />
+            <div className="mt-4 flex items-center justify-between px-1">
+              <span className="text-xs text-slate-400">Theme</span>
+              <ThemeToggle />
+            </div>
             <p className="mt-4 px-1 text-[11px] leading-relaxed text-slate-400">
               Messages are analyzed in your browser and never uploaded.
             </p>

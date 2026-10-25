@@ -26,6 +26,7 @@ export default defineConfig({
     // Only run on demand via `npm run screenshots`.
     { name: "shots-desktop", testMatch: /screenshots/, use: desktop },
     { name: "shots-mobile", testMatch: /screenshots/, use: mobile },
+    { name: "shots-dark", testMatch: /screenshots/, use: { ...desktop, colorScheme: "dark" } },
   ],
   webServer: {
     command: `npm run start -- -p ${PORT}`,

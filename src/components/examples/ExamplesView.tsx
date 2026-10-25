@@ -154,7 +154,7 @@ export function ExamplesView() {
               onClick={() => setCategory(c)}
               className={cn(
                 "rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors",
-                category === c ? "bg-navy-900 text-white" : "bg-sunken text-ink-muted hover:bg-line hover:text-ink",
+                category === c ? "bg-ink text-canvas" : "bg-sunken text-ink-muted hover:bg-line hover:text-ink",
               )}
             >
               {c}

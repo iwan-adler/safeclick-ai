@@ -173,7 +173,7 @@ export function HelpView() {
                       <span
                         className={cn(
                           "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
-                          selected ? "bg-brand-600 text-white" : "bg-sunken text-ink-muted",
+                          selected ? "bg-primary text-white" : "bg-sunken text-ink-muted",
                         )}
                       >
                         {selected ? <Check aria-hidden="true" className="h-4 w-4 animate-pop" /> : <Icon aria-hidden="true" className="h-4 w-4" />}
@@ -212,7 +212,7 @@ export function HelpView() {
                 {region === "india" && exposures.includes("paid") && (
                   <a
                     href="tel:1930"
-                    className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-coral-500 px-4 py-3 text-[15px] font-semibold text-white shadow-[var(--shadow-card)] hover:bg-coral-700"
+                    className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-[#c83a32] px-4 py-3 text-[15px] font-semibold text-white shadow-[var(--shadow-card)] hover:bg-[#b2342c]"
                   >
                     <PhoneCall aria-hidden="true" className="h-5 w-5" />
                     Call 1930 now (National Cyber Crime Helpline)
@@ -300,6 +300,8 @@ export function HelpView() {
           <h3 className="mt-5 text-[13px] font-semibold text-ink">Preview</h3>
           <pre
             id="incident-report"
+            tabIndex={0}
+            aria-label="Incident report preview"
             className="mt-2 max-h-80 overflow-auto rounded-xl border border-line bg-sunken/60 p-4 font-mono text-[12px] leading-relaxed text-ink whitespace-pre-wrap [overflow-wrap:anywhere]"
           >
             {report}

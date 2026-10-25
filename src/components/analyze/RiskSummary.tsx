@@ -20,7 +20,7 @@ function Gauge({ score, color }: { score: number; color: string }) {
   return (
     <div className="relative h-[84px] w-[148px] shrink-0" aria-hidden="true">
       <svg viewBox="0 0 128 72" className="h-full w-full overflow-visible">
-        <path d={`M ${64 - R} 64 A ${R} ${R} 0 0 1 ${64 + R} 64`} fill="none" stroke="#eef0f5" strokeWidth="10" strokeLinecap="round" />
+        <path d={`M ${64 - R} 64 A ${R} ${R} 0 0 1 ${64 + R} 64`} fill="none" stroke="var(--color-sunken)" strokeWidth="10" strokeLinecap="round" />
         <path
           d={`M ${64 - R} 64 A ${R} ${R} 0 0 1 ${64 + R} 64`}
           fill="none"
@@ -40,7 +40,7 @@ function Gauge({ score, color }: { score: number; color: string }) {
               y1={64 - (R - 8) * Math.sin(a)}
               x2={64 + (R - 13) * Math.cos(a)}
               y2={64 - (R - 13) * Math.sin(a)}
-              stroke="#cdd4e1"
+              stroke="var(--color-line-strong)"
               strokeWidth="1.5"
               strokeLinecap="round"
             />
@@ -65,7 +65,7 @@ function Scale({ score }: { score: number }) {
       </div>
       <div className="relative h-0">
         <span
-          className="absolute -top-[13px] h-[14px] w-[3px] -translate-x-1/2 rounded-full bg-navy-900 ring-2 ring-white transition-[left] duration-700"
+          className="absolute -top-[13px] h-[14px] w-[3px] -translate-x-1/2 rounded-full bg-ink ring-2 ring-surface transition-[left] duration-700"
           style={{ left: `${Math.min(99, Math.max(1, score))}%` }}
         />
       </div>

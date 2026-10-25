@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test --project=desktop --project=mobile",
-    "screenshots": "playwright test --project=shots-desktop --project=shots-mobile",
+    "screenshots": "playwright test --project=shots-desktop --project=shots-mobile --project=shots-dark",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
     "eval": "vitest run --config vitest.eval.config.mts run.eval",
     "eval:baseline": "vitest run --config vitest.eval.config.mts baseline",
@@ -29,6 +29,7 @@
     "tesseract.js": "^7.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",

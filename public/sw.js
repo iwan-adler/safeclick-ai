@@ -18,13 +18,14 @@
  *    once via postMessage. It is never written to a cache or sent anywhere.
  *  - Bump CACHE_VERSION to discard old caches on the next activation.
  */
-const CACHE_VERSION = "safeclick-v4";
+const CACHE_VERSION = "safeclick-v5";
 const PAGES = ["/", "/help", "/examples", "/learn", "/guide", "/privacy"];
 const ASSET_PATTERN = /\/_next\/static\/[^"'\s)]+/g;
 
 async function precache() {
   const cache = await caches.open(CACHE_VERSION);
   const assets = new Set();
+  assets.add("/theme-init.js");
   for (const page of PAGES) {
     try {
       const res = await fetch(page, { cache: "no-cache" });
@@ -99,7 +100,7 @@ self.addEventListener("fetch", (event) => {
   }
   if (request.method !== "GET") return;
 
-  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/ocr/")) {
+  if (url.pathname.startsWith("/_next/static/") || url.pathname.startsWith("/ocr/") || url.pathname === "/theme-init.js") {
     event.respondWith(
       caches.match(request).then(
         (cached) =>

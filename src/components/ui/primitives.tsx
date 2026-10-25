@@ -9,7 +9,7 @@ type ButtonSize = "sm" | "md" | "lg";
 
 const VARIANTS: Record<ButtonVariant, string> = {
   primary:
-    "bg-brand-600 text-white shadow-[0_1px_2px_rgb(35_67_201/0.3),inset_0_1px_0_rgb(255_255_255/0.12)] hover:bg-brand-700 active:translate-y-px disabled:bg-line-strong disabled:text-white disabled:shadow-none",
+    "bg-primary text-white shadow-[0_1px_2px_rgb(35_67_201/0.3),inset_0_1px_0_rgb(255_255_255/0.12)] hover:bg-primary-hover active:translate-y-px disabled:bg-line-strong disabled:text-white disabled:shadow-none",
   secondary:
     "bg-surface text-ink border border-line hover:border-line-strong hover:bg-sunken active:translate-y-px disabled:text-ink-subtle",
   ghost: "text-ink-muted hover:bg-sunken hover:text-ink disabled:text-line-strong",
@@ -82,7 +82,7 @@ export function PageHeader({ eyebrow, title, subtitle, aside }: { eyebrow: strin
 /** Progress bar with an accessible label. */
 export function Progress({ value, max, label, tone = "brand" }: { value: number; max: number; label: string; tone?: "brand" | "mint" | "lavender" }) {
   const pct = max === 0 ? 0 : Math.round((value / max) * 100);
-  const fill = { brand: "bg-brand-600", mint: "bg-mint-500", lavender: "bg-lavender-500" }[tone];
+  const fill = { brand: "bg-primary", mint: "bg-mint-500", lavender: "bg-lavender-500" }[tone];
   return (
     <div
       role="progressbar"
