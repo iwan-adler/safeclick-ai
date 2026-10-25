@@ -37,6 +37,14 @@ function detectObfuscation(text: string): Signal | null {
       evidence.push({ text: m[0], start: m.index, end: m.index + m[0].length });
     }
   }
+  // Digit-for-letter swaps inside words ("V0DAF0NE", "W1NNER") dodge spam filters.
+  for (const m of text.matchAll(/\b[A-Za-z]*[A-Za-z][01][A-Za-z][A-Za-z0-9]*\b/g)) {
+    if (m.index === undefined) continue;
+    const letters = m[0].replace(/[^A-Za-z]/g, "");
+    if (letters.length >= 3 && m[0].length >= 4) {
+      evidence.push({ text: m[0], start: m.index, end: m.index + m[0].length });
+    }
+  }
   if (evidence.length === 0) return null;
   const unique = evidence
     .filter((e, i) => evidence.findIndex((o) => o.start < e.end && e.start < o.end) === i)
@@ -50,7 +58,7 @@ function detectObfuscation(text: string): Signal | null {
     severity: "medium",
     weight: 14,
     explanation:
-      "Some words mix alphabets (for example a Cyrillic letter that looks like a Latin one) or contain invisible characters. This can disguise brand names or slip past filters.",
+      "Some words mix alphabets (for example a Cyrillic letter that looks like a Latin one), swap digits for letters (“V0DAF0NE”) or contain invisible characters. This can disguise brand names or slip past spam filters.",
     evidence: unique,
     recommendation: "Do not trust how a name or link looks. Type addresses yourself instead of copying them.",
   };

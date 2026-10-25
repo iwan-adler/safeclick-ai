@@ -8,21 +8,26 @@
 import type { UrlFinding, UrlReport } from "./types";
 
 const COMMON_TLDS =
-  "com|net|org|io|co|in|info|biz|us|uk|ca|au|de|fr|es|it|nl|ru|cn|me|ly|gl|app|dev|xyz|top|click|link|online|site|live|shop|store|tk|ml|ga|cf|gq|zip|mov|icu|buzz|rest|cam|work|support|example";
+  "com|net|org|io|co|in|info|biz|us|uk|ca|au|de|fr|es|it|nl|ru|cn|me|ly|gl|app|dev|xyz|top|click|link|online|site|live|shop|store|tk|ml|ga|cf|gq|zip|mov|icu|buzz|rest|cam|work|support|do|gd|cc|ws|pw|club|win|loan|vip|mobi|example";
 
 /**
  * Matches, in order of preference:
  *  1. scheme URLs (http/https/other) — `hxxp` is a common "defanged" spelling
- *  2. `www.` URLs
- *  3. bare IPv4 hosts with an optional path
- *  4. bare domains ending in a known TLD, with an optional path
+ *  2. broken scheme URLs such as "http:/bit.do/x" or "http:ow.ly/x", a trick
+ *     used to slip links past filters while phones still make them tappable
+ *  3. `www.` URLs
+ *  4. bare IPv4 hosts with an optional path
+ *  5. bare domains ending in a known TLD, with an optional path
  */
 /** Any character that cannot be part of a link (whitespace, <, >, quotes, backtick). */
 const NOT_URL_CHAR = String.raw`[^\s<>"'\x60]`;
 
+const BROKEN_SCHEME = /^(?:https?|hxxps?):\/?(?!\/)/i;
+
 const URL_PATTERN = new RegExp(
   [
     String.raw`\b(?:https?|hxxps?|ftp):\/\/` + NOT_URL_CHAR + "+",
+    String.raw`\b(?:https?|hxxps?):\/?(?!\/)[\p{L}\p{N}]` + NOT_URL_CHAR + "+",
     String.raw`\bwww\.` + NOT_URL_CHAR + "+",
     String.raw`\b\d{1,3}(?:\.\d{1,3}){3}(?::\d+)?(?:\/` + NOT_URL_CHAR + "*)?",
     String.raw`(?<![\p{L}\p{N}@.-])(?:[\p{L}\p{N}][\p{L}\p{N}-]{0,62}\.)+(?:` +
@@ -51,7 +56,44 @@ const SHORTENERS = new Set([
   "rebrand.ly",
   "t.ly",
   "s.id",
+  "bit.do",
+  "v.gd",
+  "smsg.io",
+  "shrtco.de",
+  "t2m.io",
+  "tiny.one",
+  "bitly.ws",
+  "short.gy",
+  "cli.re",
+  "x.co",
 ]);
+
+/**
+ * Free website builders, tunnels and redirect services. Anyone can create a
+ * site on these in minutes, so organizations rarely send customers to them.
+ */
+const FREE_HOST_SUFFIXES = [
+  "webredirect.org",
+  "duckdns.org",
+  "ngrok.io",
+  "ngrok-free.app",
+  "trycloudflare.com",
+  "000webhostapp.com",
+  "firebaseapp.com",
+  "web.app",
+  "pages.dev",
+  "workers.dev",
+  "netlify.app",
+  "glitch.me",
+  "herokuapp.com",
+  "repl.co",
+  "weebly.com",
+  "wixsite.com",
+  "blogspot.com",
+  "github.io",
+  "square.site",
+  "godaddysites.com",
+];
 
 const UNCOMMON_TLDS = new Set([
   "zip",
@@ -88,9 +130,33 @@ const BRANDS = [
   "whatsapp",
   "linkedin",
   "dropbox",
+  // India
+  "sbi",
+  "hdfc",
+  "icici",
+  "axisbank",
+  "kotak",
+  "paytm",
+  "phonepe",
+  "yono",
+  "npci",
+  "uidai",
+  "airtel",
+  "indiapost",
+  "irctc",
+  "flipkart",
 ];
 
+/** Official domains for brands whose real domain does not start with "<brand>.". */
+const OFFICIAL_DOMAINS = new Set(["onlinesbi.sbi", "sbi.co.in", "hdfcbank.com", "icicibank.com", "kotak.com", "npci.org.in", "uidai.gov.in", "airtel.in", "indiapost.gov.in", "irctc.co.in"]);
+
 const DECEPTIVE_KEYWORDS = [
+  "kyc",
+  "netbanking",
+  "claim",
+  "reward",
+  "bonus",
+  "prize",
   "login",
   "signin",
   "verify",
@@ -141,7 +207,7 @@ function deLeet(value: string): string {
 }
 
 function parse(raw: string): URL | null {
-  let candidate = raw.replace(/^hxxp/i, "http");
+  let candidate = BROKEN_SCHEME.test(raw) ? `http://${raw.replace(BROKEN_SCHEME, "")}` : raw.replace(/^hxxp/i, "http");
   if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(candidate)) {
     candidate = `http://${candidate}`;
   }
@@ -155,7 +221,7 @@ function parse(raw: string): URL | null {
 
 /** Raw host text as typed (before the URL parser converts it to punycode). */
 function rawHost(raw: string): string {
-  const withoutScheme = raw.replace(/^[a-z][a-z0-9+.-]*:\/\//i, "");
+  const withoutScheme = raw.replace(BROKEN_SCHEME, "").replace(/^[a-z][a-z0-9+.-]*:\/\//i, "");
   const authority = withoutScheme.split(/[/?#]/)[0];
   const afterAt = authority.includes("@") ? authority.slice(authority.lastIndexOf("@") + 1) : authority;
   return afterAt.replace(/:\d+$/, "");
@@ -185,6 +251,15 @@ export function inspectUrl(raw: string): Omit<UrlReport, "start" | "end" | "raw"
   const isIPv6 = host.startsWith("[");
   const labels = host.split(".");
   const tld = labels[labels.length - 1];
+
+  if (BROKEN_SCHEME.test(raw)) {
+    findings.push({
+      id: "malformed",
+      label: "Broken link format",
+      detail: "The link is written as “http:/” or “http:” without the usual “//”. Scammers do this to slip links past filters, while many phones still make them tappable.",
+      weight: 12,
+    });
+  }
 
   if (isIPv4 || isIPv6) {
     findings.push({
@@ -251,9 +326,13 @@ export function inspectUrl(raw: string): Omit<UrlReport, "start" | "end" | "raw"
     const registrable = registrableDomain(host);
     const hostPart = labels.slice(0, -1).join(".");
     const normalized = deLeet(hostPart);
-    const brand = BRANDS.find((b) => normalized.includes(b));
+    const tokens = normalized.split(/[.-]/);
+    // Short brand names ("sbi") must start or end a label, so "taxis" never matches "axis".
+    const brand = BRANDS.find((b) =>
+      b.length <= 4 ? tokens.some((t) => t.startsWith(b) || t.endsWith(b)) : normalized.includes(b),
+    );
     if (brand) {
-      const officialLike = registrable.startsWith(`${brand}.`);
+      const officialLike = registrable.startsWith(`${brand}.`) || OFFICIAL_DOMAINS.has(registrable) || OFFICIAL_DOMAINS.has(host);
       if (!officialLike) {
         const substituted = !hostPart.includes(brand);
         findings.push({
@@ -265,6 +344,16 @@ export function inspectUrl(raw: string): Omit<UrlReport, "start" | "end" | "raw"
           weight: 20,
         });
       }
+    }
+
+    const freeHost = FREE_HOST_SUFFIXES.find((suffix) => host === suffix || host.endsWith(`.${suffix}`));
+    if (freeHost) {
+      findings.push({
+        id: "free-hosting",
+        label: "Free website or redirect service",
+        detail: `The link is hosted on ${freeHost}, a service anyone can use to set up a page in minutes. Banks, couriers and government agencies use their own domains.`,
+        weight: 12,
+      });
     }
 
     const keyword = DECEPTIVE_KEYWORDS.find((k) => hostPart.includes(k));

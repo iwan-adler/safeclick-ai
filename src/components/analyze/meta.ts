@@ -7,6 +7,7 @@ import {
   Link2,
   MessageSquareText,
   MonitorSmartphone,
+  PhoneCall,
   PhoneOff,
   ScanText,
   ShieldAlert,
@@ -30,6 +31,7 @@ export const KIND_ICON: Record<SignalKind, LucideIcon> = {
   device: MonitorSmartphone,
   obfuscation: ScanText,
   escalation: TrendingUp,
+  contact: PhoneCall,
   generic: MessageSquareText,
 };
 
@@ -46,6 +48,7 @@ export const KIND_LABEL: Record<SignalKind, string> = {
   device: "Device access",
   obfuscation: "Disguised text",
   escalation: "Escalation",
+  contact: "Unknown number",
   generic: "Generic wording",
 };
 

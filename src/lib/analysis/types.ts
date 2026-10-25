@@ -19,6 +19,7 @@ export type SignalKind =
   | "device"
   | "obfuscation"
   | "escalation"
+  | "contact"
   | "generic";
 
 /**
@@ -77,7 +78,8 @@ export type UrlFindingId =
   | "deceptive-keywords"
   | "uncommon-tld"
   | "very-long"
-  | "malformed";
+  | "malformed"
+  | "free-hosting";
 
 export interface UrlFinding {
   id: UrlFindingId;
