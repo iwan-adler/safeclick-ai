@@ -213,3 +213,17 @@ test("conversation mode: timeline shows trust-then-request escalation", async ({
   await page.getByRole("button", { name: "Single message" }).click();
   await expect(page.getByText("You switched mode since this analysis.")).toBeVisible();
 });
+
+test("link X-ray shows the real domain and look-alike characters", async ({ page }) => {
+  await page.goto("/examples");
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: "Look-alike payment page" })
+    .getByRole("button", { name: "Analyze this example" })
+    .click();
+  const links = page.getByRole("region", { name: /Links in this message/ });
+  await expect(links.getByText("Link X-ray")).toBeVisible();
+  await expect(links.getByText("real domain")).toBeVisible();
+  await expect(links.getByText(/is a Cyrillic character \(U\+043E\)/)).toBeVisible();
+  await expect(links.getByText(/looks like the Latin letter/)).toBeVisible();
+});

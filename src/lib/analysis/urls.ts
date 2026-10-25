@@ -22,7 +22,7 @@ const COMMON_TLDS =
 /** Any character that cannot be part of a link (whitespace, <, >, quotes, backtick). */
 const NOT_URL_CHAR = String.raw`[^\s<>"'\x60]`;
 
-const BROKEN_SCHEME = /^(?:https?|hxxps?):\/?(?!\/)/i;
+export const BROKEN_SCHEME = /^(?:https?|hxxps?):\/?(?!\/)/i;
 
 const URL_PATTERN = new RegExp(
   [
@@ -191,7 +191,7 @@ export function extractUrlCandidates(text: string): { raw: string; start: number
   return out;
 }
 
-function registrableDomain(host: string): string {
+export function registrableDomain(host: string): string {
   const labels = host.split(".");
   if (labels.length <= 2) return host;
   const tld = labels[labels.length - 1];
@@ -206,7 +206,7 @@ function deLeet(value: string): string {
   return value.replace(/[0134579]/g, (d) => LEET[d] ?? d);
 }
 
-function parse(raw: string): URL | null {
+export function parseUrl(raw: string): URL | null {
   let candidate = BROKEN_SCHEME.test(raw) ? `http://${raw.replace(BROKEN_SCHEME, "")}` : raw.replace(/^hxxp/i, "http");
   if (!/^[a-z][a-z0-9+.-]*:\/\//i.test(candidate)) {
     candidate = `http://${candidate}`;
@@ -229,7 +229,7 @@ function rawHost(raw: string): string {
 
 export function inspectUrl(raw: string): Omit<UrlReport, "start" | "end" | "raw"> {
   const findings: UrlFinding[] = [];
-  const url = parse(raw);
+  const url = parseUrl(raw);
 
   if (!url) {
     return {

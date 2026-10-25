@@ -35,6 +35,22 @@ test("capture key screens", async ({ page }, info) => {
 
   await page.goto("/examples");
   await shot("03-examples");
+  await page
+    .getByRole("listitem")
+    .filter({ hasText: "Look-alike payment page" })
+    .getByRole("button", { name: "Analyze this example" })
+    .click();
+  await page.getByText("Link X-ray").first().waitFor();
+  await page.waitForTimeout(800);
+  await shot("03b-link-xray");
+
+  await page.goto("/help");
+  await page.getByRole("button", { name: /I sent money/ }).click();
+  await page.getByRole("button", { name: /I shared an OTP/ }).click();
+  await page.getByLabel("Amount lost (if any)").fill("Rs.8,500");
+  await page.getByLabel("Transaction / UTR / reference IDs").fill("UPI Ref 631204557812");
+  await page.waitForTimeout(500);
+  await shot("03c-help");
 
   await page.goto("/learn");
   await page.getByRole("button", { name: /Hang up and call/ }).click();
