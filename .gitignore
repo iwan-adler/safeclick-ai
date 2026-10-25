@@ -49,3 +49,6 @@ next-env.d.ts
 
 # evaluation dataset (downloaded by npm run eval)
 /eval/.data
+
+# launch video output (large media files)
+/brag-output*/

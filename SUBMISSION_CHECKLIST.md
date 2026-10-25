@@ -37,7 +37,9 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 - ⬜ **Demo link:** deploy (see README → Deployment), then paste the URL here.
 - ⬜ **Source repository:** push to a public repository, then paste the URL here.
 - ⬜ **Screenshots:** run `npm run build && npm run screenshots`, review `screenshots/`, and upload your picks. Includes screenshot reading, conversation mode, examples, learn, guide and privacy (with accuracy) at desktop and mobile sizes.
-- ⬜ **Demo video (optional):** record using [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (about 3 minutes), with [`demo/sample-sms.png`](demo/sample-sms.png).
+- ✅ **Launch video (20s):** generated locally in `brag-output/brag.mp4` with a poster frame and `share-copy.txt` (not committed; upload it to YouTube/Devpost).
+- ✅ **Pitch deck:** 12 slides with speaker notes, made as a private Claude artifact. Share it from its Share menu; fill in `[demo link]` and `[team names]` on the last slide.
+- ⬜ **Demo video (optional, longer):** record using [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (about 3 minutes), with [`demo/sample-sms.png`](demo/sample-sms.png).
 
 ## Safer outcomes to demonstrate (all covered by tests)
 
