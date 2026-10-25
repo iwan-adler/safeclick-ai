@@ -13,6 +13,7 @@ import { ConversationTimeline } from "./ConversationTimeline";
 import { LinkReport } from "./LinkReport";
 import { RiskSummary } from "./RiskSummary";
 import { SignalCard } from "./SignalCard";
+import { WarningCardButton } from "./WarningCard";
 
 const LOOKS_FOR = [
   { icon: Clock, label: "Pressure and deadlines" },
@@ -100,6 +101,7 @@ function ResultView({ result, text, onAnalyzeAnother }: { result: AnalysisResult
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
           Check another message
         </Button>
+        <WarningCardButton result={result} message={text} />
         {result.level !== "lower" && (
           <Link href="/help" className={buttonClass("ghost", "sm", "text-coral-700 hover:bg-coral-50 hover:text-coral-700")}>
             <Siren aria-hidden="true" className="h-4 w-4" />

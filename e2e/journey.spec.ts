@@ -227,3 +227,22 @@ test("link X-ray shows the real domain and look-alike characters", async ({ page
   await expect(links.getByText(/is a Cyrillic character \(U\+043E\)/)).toBeVisible();
   await expect(links.getByText(/looks like the Latin letter/)).toBeVisible();
 });
+
+test("warn family card: Hindi, masked excerpt option, and a real PNG download", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Bank OTP request" }).click();
+  await page.getByRole("button", { name: "Analyze", exact: true }).click();
+  await page.getByRole("button", { name: "Warn family" }).click();
+  const dialog = page.getByRole("dialog", { name: "Warn a family member" });
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("img", { name: /High concern/ })).toBeVisible();
+
+  await dialog.getByRole("button", { name: "हिन्दी" }).click();
+  await expect(dialog.getByRole("img", { name: /बहुत ज़्यादा ख़तरा/ })).toBeVisible();
+
+  const [download] = await Promise.all([page.waitForEvent("download"), dialog.getByRole("button", { name: "Download image" }).click()]);
+  expect(download.suggestedFilename()).toBe("safeclick-warning.png");
+
+  await page.keyboard.press("Escape");
+  await expect(dialog).toBeHidden();
+});

@@ -27,6 +27,12 @@ test("capture key screens", async ({ page }, info) => {
   await page.waitForTimeout(1000);
   await shot("02-analyze-result");
 
+  await page.getByRole("button", { name: "Warn family" }).click();
+  await page.getByRole("button", { name: "हिन्दी" }).click();
+  await page.waitForTimeout(400);
+  await page.locator("dialog canvas").screenshot({ path: `screenshots/${info.project.name}-02c-warning-card-hi.png` });
+  await page.keyboard.press("Escape");
+
   await page.getByRole("button", { name: "Wrong number that turns into investing" }).click();
   await page.getByRole("button", { name: "Analyze", exact: true }).click();
   await page.getByText("Trust, then a request.").waitFor();
