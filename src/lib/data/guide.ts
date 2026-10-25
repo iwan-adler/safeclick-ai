@@ -1,7 +1,9 @@
 /**
- * Offline safety guide content. Deliberately contains no phone numbers or
- * reporting URLs: those differ by country and organization, and an invented
- * or outdated number could send someone in distress to the wrong place.
+ * Offline safety guide content. Generic advice avoids phone numbers and URLs,
+ * which differ by country and could send someone in distress to the wrong
+ * place. The only exceptions are India's official channels (1930,
+ * cybercrime.gov.in, Chakshu on sancharsaathi.gov.in), verified against
+ * government sources in October 2026 and always labelled as India-specific.
  */
 
 export type GuideIcon = "message" | "user-lock" | "key" | "banknote" | "smartphone" | "life-buoy";
@@ -47,7 +49,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       {
         title: "Report and delete",
         detail:
-          "Use your messaging app's built-in \"report junk\" or \"report phishing\" option, then delete the message. Your organization or mobile provider may also offer a reporting channel.",
+          "Use your messaging app's built-in \"report junk\" or \"report phishing\" option, then delete the message. Your organization or mobile provider may also offer a reporting channel. In India, you can report suspected fraud calls and messages on Chakshu at sancharsaathi.gov.in.",
       },
     ],
     checklist: [
@@ -117,6 +119,11 @@ export const GUIDE_SECTIONS: GuideSection[] = [
           "A password manager can generate and remember them for you. Reused passwords let one breach unlock many accounts.",
       },
       {
+        title: "Never dial codes someone sends you",
+        detail:
+          "Codes like *401* or **21* can forward your calls and OTP messages to another phone. If you dialled one at a stranger's request, dial ##002# to cancel call forwarding, then contact your mobile operator.",
+      },
+      {
         title: "Read the code message carefully",
         detail:
           "Many code messages say what the code is for (\"to log in\", \"to approve a payment\"). If you didn't start that action, someone else did.",
@@ -124,6 +131,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     ],
     checklist: [
       "I never read codes out to callers or send them in chat",
+      "I never dial * or # codes that a caller or message asks me to",
       "My email and banking passwords are unique",
       "I use a password manager or another safe way to store passwords",
       "Two-step verification is on for email and banking",
@@ -149,7 +157,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       {
         title: "Report it through official channels",
         detail:
-          "Many countries have a national fraud or cybercrime reporting service. Find it through an official government website you search for yourself.",
+          "In India, call the National Cyber Crime Helpline 1930 as soon as possible and file a complaint at cybercrime.gov.in; quick reports give the best chance of stopping the money. Elsewhere, find your national fraud or cybercrime reporting service through an official government website you search for yourself.",
       },
       {
         title: "Watch for follow-up scams",
@@ -161,7 +169,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "Called my bank using an official number",
       "Blocked or replaced affected cards",
       "Saved screenshots and notes of what happened",
-      "Reported through an official fraud reporting channel",
+      "Reported through an official fraud reporting channel (in India: 1930 / cybercrime.gov.in)",
       "I will ignore anyone offering paid \"money recovery\"",
     ],
   },

@@ -1,15 +1,46 @@
 {
-  "generatedAt": "2026-10-20",
-  "heldout": {
-    "positives": 40,
-    "negatives": 40,
-    "detectionRate": 0.825,
-    "falseAlarmRate": 0
+  "generatedAt": "2026-10-25",
+  "testUnique": {
+    "scams": 107,
+    "hams": 2393,
+    "detection": 0.8505,
+    "detectionLow": 0.7708,
+    "detectionHigh": 0.9058,
+    "falseAlarm": 0.0029,
+    "falseAlarmLow": 0.0014,
+    "falseAlarmHigh": 0.006
   },
-  "sms": {
-    "positives": 747,
-    "negatives": 4827,
-    "detectionRate": 0.0669,
-    "falseAlarmRate": 0.0031
-  }
+  "india": {
+    "scams": 47,
+    "hams": 40,
+    "detection": 0.8511,
+    "detectionLow": 0.7231,
+    "detectionHigh": 0.9259,
+    "falseAlarm": 0.025,
+    "falseAlarmLow": 0.0044,
+    "falseAlarmHigh": 0.1288
+  },
+  "baseline": {
+    "testUnique": {
+      "scams": 107,
+      "hams": 2393,
+      "detection": 0.1402,
+      "detectionLow": 0.0868,
+      "detectionHigh": 0.2185,
+      "falseAlarm": 0.0021,
+      "falseAlarmLow": 0.0009,
+      "falseAlarmHigh": 0.0049
+    },
+    "india": {
+      "scams": 47,
+      "hams": 40,
+      "detection": 0.6596,
+      "detectionLow": 0.5167,
+      "detectionHigh": 0.7783,
+      "falseAlarm": 0.025,
+      "falseAlarmLow": 0.0044,
+      "falseAlarmHigh": 0.1288
+    }
+  },
+  "modelAuc": 0.996
 }

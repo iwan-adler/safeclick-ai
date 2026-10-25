@@ -13,8 +13,24 @@ export const MODEL_INFO = { trainedOn: weights.trainedOn, trainedAt: weights.tra
 
 const MAX_EVIDENCE = 5;
 
+/**
+ * Common function words still count towards the score, but they make poor
+ * explanations ("your", "with"), so they are left out of what is shown.
+ */
+const STOPWORDS = new Set(
+  "a an and are as at be by for from has have i in is it me my of on or our so that the this to u up we with you your".split(" "),
+);
+
+function isExplanatory(feature: string): boolean {
+  if (feature === "t:<num>") return false;
+  if (feature.startsWith("w:")) return !STOPWORDS.has(feature.slice(2));
+  if (feature.startsWith("b:")) return feature.slice(2).split(" ").some((part) => !STOPWORDS.has(part) && part !== "<num>");
+  return true;
+}
+
 export function runModel(text: string): { insight: ModelInsight; signal: Signal | null } {
-  const { probability, contributions } = predict(text);
+  const { probability, contributions: all } = predict(text);
+  const contributions = all.filter((c) => isExplanatory(c.feature));
   const band = probability >= weights.thresholds.strong ? "strong" : probability >= weights.thresholds.moderate ? "moderate" : "low";
   const top = contributions.slice(0, 6).map((c) => ({ label: describeFeature(c.feature), weight: c.weight }));
   const insight: ModelInsight = { probability, band, topFeatures: top };

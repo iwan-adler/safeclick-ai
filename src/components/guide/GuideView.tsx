@@ -8,6 +8,7 @@ import {
   Download,
   KeyRound,
   LifeBuoy,
+  MapPin,
   MessageSquareWarning,
   RotateCcw,
   Siren,
@@ -225,6 +226,27 @@ export function GuideView() {
           call your bank using the number on your card or in its official app, never one from a suspicious message.
         </p>
       </div>
+
+      <section
+        aria-labelledby="india-help"
+        className="mb-5 rounded-[var(--radius-card)] border border-brand-100 bg-brand-50/60 p-4 text-[13.5px] leading-relaxed"
+      >
+        <h2 id="india-help" className="flex items-center gap-2 font-semibold text-brand-700">
+          <MapPin aria-hidden="true" className="h-4 w-4" />
+          In India
+        </h2>
+        <ul className="mt-2 grid gap-2 text-ink sm:grid-cols-2">
+          <li>
+            <span className="font-medium">Lost money to a scam?</span> Call the National Cyber Crime Helpline{" "}
+            <strong className="tabular-nums">1930</strong> as soon as possible, and file a complaint at{" "}
+            <span className="font-mono text-[12.5px]">cybercrime.gov.in</span>. Then call your bank.
+          </li>
+          <li>
+            <span className="font-medium">Suspicious call, SMS or WhatsApp, but no money lost?</span> Report it on{" "}
+            <span className="font-medium">Chakshu</span> at <span className="font-mono text-[12.5px]">sancharsaathi.gov.in</span>.
+          </li>
+        </ul>
+      </section>
 
       <div className="grid gap-5 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-6">
         <div

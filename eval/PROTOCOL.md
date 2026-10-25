@@ -45,3 +45,9 @@ Many real scam texts are templates that differ only in numbers or a few words (f
 ## Amendment 3: India augmentation (committed before any v2 test results were computed)
 
 The first classifier flagged genuine Indian transaction alerts (found with hand-written unit-test messages, not evaluation data). A fictional, hand-written India augmentation set (`augment-india.ts`) is added to classifier training only. It is never used for evaluation, and the independent **india** set remains untouched.
+
+## Post-hoc changes (made after the pre-registered final run at commit 4ab03ce)
+
+These changes were made after test/india results were first computed. The pre-registered numbers remain the official result; re-measured numbers are reported separately and are **not** strictly held out.
+
+1. India rule: Hinglish "kat jayega" (masculine) added alongside "kat jayegi" for electricity disconnection threats. Found while writing an in-app example, not from evaluation data.

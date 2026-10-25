@@ -18,6 +18,9 @@ export type ExampleCategory =
   | "Tech support"
   | "Shopping"
   | "Investment"
+  | "UPI"
+  | "Utilities"
+  | "Government"
   | "Everyday";
 
 export interface ExampleMessage {
@@ -151,6 +154,59 @@ export const EXAMPLES: ExampleMessage[] = [
       "No single early message looks dangerous. The pattern is the build-up: an accidental contact, compliments and daily chat, then an investment pitch and a request to deposit money on an unfamiliar platform.",
     expectedSignals: ["trust-then-request", "investment-pitch", "payment-request", "channel-switch"],
     safeNextStep: "Stop replying and block the contact. Never invest through a platform suggested by someone you met online.",
+  },
+  {
+    id: "upi-qr-refund",
+    title: "Marketplace buyer sends a QR “payment”",
+    category: "UPI",
+    channel: "Chat",
+    message:
+      "Hi, I am interested in your cycle and I have already paid. Please scan this QR code to receive Rs.8,500 in your account and enter your UPI PIN to confirm. I am in the Army so I cannot come today, please do it fast.",
+    explanation:
+      "You never need to scan a QR code or enter your UPI PIN to receive money. The PIN only ever sends money out, so this “payment” would empty your account instead.",
+    expectedSignals: ["upi-request", "credential-request"],
+    safeNextStep: "Decline the QR and any collect request. Only accept money that arrives in your account without you entering a PIN.",
+  },
+  {
+    id: "kyc-hindi",
+    title: "KYC expiry message in Hindi",
+    category: "Banking",
+    channel: "SMS",
+    message:
+      "प्रिय ग्राहक, आपका बैंक खाता आज बंद हो जाएगा। तुरंत केवाईसी अपडेट करें: http://kyc-bank-update.example",
+    explanation:
+      "Written in Hindi to feel official and familiar. Banks do not close accounts by SMS or ask for KYC through a link; the link only imitates a bank's name.",
+    expectedSignals: ["kyc-update", "account-threat", "urgency", "suspicious-link"],
+    safeNextStep: "Ignore the link. Check your KYC status inside your bank's official app or at a branch.",
+  },
+  {
+    id: "electricity-hinglish",
+    title: "Electricity cut-off threat in Hinglish",
+    category: "Utilities",
+    channel: "SMS",
+    message:
+      "Priy upbhokta, aapka bijli connection aaj raat 9:30 baje kat jayega kyunki pichhle mahine ka bill update nahi hua hai. Turant bijli officer se sampark karein.",
+    explanation:
+      "A deadline tonight and a vague “bill not updated” reason push you to call an “officer” who will ask for payment or a remote-access app. Electricity boards send bills through official channels.",
+    expectedSignals: ["authority-threat-india", "account-threat", "urgency"],
+    safeNextStep: "Check your bill in the electricity board's official app or website. Never call a number from such an SMS.",
+  },
+  {
+    id: "digital-arrest",
+    title: "“Digital arrest” video-call script",
+    category: "Government",
+    channel: "Chat",
+    mode: "conversation",
+    message: [
+      "Officer Sharma: This is Mumbai Cyber Crime branch. A parcel booked on your Aadhaar contains drugs and fake passports.",
+      "Me: That is not mine!",
+      "Officer Sharma: A case of money laundering is registered. You are under digital arrest. Stay on video call and do not tell anyone, even family.",
+      "Officer Sharma: To prove you are innocent, transfer Rs.1,50,000 to the RBI verification account. It will be refunded after checking.",
+    ].join("\n"),
+    explanation:
+      "“Digital arrest” does not exist in Indian law. Real police never keep you on a video call, demand secrecy, or ask you to transfer money to “verify” it.",
+    expectedSignals: ["authority-threat-india", "secrecy", "payment-request"],
+    safeNextStep: "End the call. Tell family, and report it to the national cyber-crime helpline (1930) or cybercrime.gov.in.",
   },
   {
     id: "dentist-reminder",

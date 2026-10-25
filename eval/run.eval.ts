@@ -5,6 +5,10 @@
  *   src/lib/data/eval-summary.json     headline numbers shown in the app
  *
  * Usage: npm run eval
+ *
+ * With POSTHOC=1 (after the pre-registered run, see PROTOCOL.md "Post-hoc
+ * changes"), writes eval/RESULTS-posthoc.md instead and leaves the official
+ * report and the in-app numbers untouched.
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -17,6 +21,7 @@ import { HELDOUT } from "./heldout";
 import { computeMetrics, pct, rateText, runItems, type Analyzer, type Metrics, type Rate } from "./metrics";
 
 const out = (rel: string) => fileURLToPath(new URL(rel, import.meta.url));
+const POSTHOC = Boolean(process.env.POSTHOC);
 
 type SetName = "dev" | "test" | "testUnique" | "india";
 
@@ -92,8 +97,14 @@ test("final evaluation", async () => {
     `| ${labels[name]} | ${cell(pick(baseline.sets[name]))} | ${cell(pick(rules[name]!))} | ${cell(pick(hybrid[name]!))} |`;
 
   const md = [
-    "# SafeClick AI: Accuracy Report (v2, real-world data)",
+    POSTHOC ? "# SafeClick AI: Post-hoc re-measurement (not held out)" : "# SafeClick AI: Accuracy Report (v2, real-world data)",
     "",
+    ...(POSTHOC
+      ? [
+          "> These numbers were computed **after** the pre-registered final run, following the changes listed under *Post-hoc changes* in [PROTOCOL.md](PROTOCOL.md). Because the test and india sets had already been scored once, they are no longer strictly held out. The official result is [RESULTS.md](RESULTS.md).",
+          "",
+        ]
+      : []),
     `Generated ${generatedAt} from commit \`${commit}\` by \`npm run eval\`, following the pre-registered [protocol](PROTOCOL.md) and its amendments. Numbers are computed, not hand-edited. A message is **flagged** when rated *Needs caution* or *High concern*.`,
     "",
     "Columns: the **v1** engine (frozen copy of commit `" + baseline.commit + "`), **v2 rules** alone, and **v2 rules + on-device model** (what the app ships).",
@@ -147,6 +158,11 @@ test("final evaluation", async () => {
     "",
   ].join("\n");
 
+  if (POSTHOC) {
+    writeFileSync(out("./RESULTS-posthoc.md"), md);
+    console.log(md.split("## Data")[0]);
+    return;
+  }
   writeFileSync(out("./RESULTS.md"), md);
   writeFileSync(
     out("./results.json"),

@@ -111,7 +111,7 @@ const CORE_RULES: Rule[] = [
       /\b(?:arrest warrant|warrant (?:has been |was |is )?issued|(?:you|you'll|you will|will) (?:be|get) arrested|(?:police|legal) (?:action|case|complaint) (?:against|on) (?:you|your))\b/giu,
       /\b(?:will be|has been|have been|is being|be|been|gets?) (?:temporarily |permanently )?(?:locked|blocked|closed|terminated|disabled|frozen|cancelled|canceled|deleted|restricted|barred|put on hold|on hold)\b/giu,
       /\b(?:hold|freeze|block) your (?:account|card|amount|wallet|money|sim|number|payment)\b|\baccount (?:is |has been )?(?:on hold|restricted|limited)\b/giu,
-      /\b(?:block|band|suspend|deactivate|freeze|bandh) (?:ho jayega|ho jayegi|kar diya jayega|kar di jayegi|hoga)\b|\bkat (?:jayega|jayegi|di jayegi)\b/giu,
+      /\b(?:block|band|suspend|deactivate|freeze|bandh) (?:ho jayega|ho jayegi|kar diya jayega|kar di jayegi|hoga)\b|\bkat (?:jayega|jayegi|di jayegi|diya jayega)\b/giu,
       /((?:ब्लॉक|बंद|निलंबित) (?:हो जाएगा|हो जाएगी|कर दिया जाएगा)|कट जाएगा|कट जाएगी)/gu,
     ],
   },

@@ -73,7 +73,7 @@ export const INDIA_RULES: Rule[] = [
       /\bdigital(?:ly)? arrest\w*\b/giu,
       /\b(?:parcel|package|courier)\b[^.!?\n]{0,60}?\b(?:drugs?|narcotics|illegal items?|contraband|fake passports?|mdma)\b/giu,
       /\b(?:sim|mobile number|connection)\b[^.!?\n]{0,30}?\b(?:will be|has been|ho jayega|hoga)\b[^.!?\n]{0,15}?\b(?:blocked|disconnected|deactivated|suspended|band|block)\b/giu,
-      /\b(?:electricity|power|bijli)\b[^.!?\n]{0,50}?\b(?:disconnect\w*|cut off|will be cut|kat jayegi|kat di jayegi|band)\b/giu,
+      /\b(?:electricity|power|bijli)\b[^.!?\n]{0,50}?\b(?:disconnect\w*|cut off|will be cut|kat jayega|kat jayegi|kat di jayegi|kat diya jayega|band)\b/giu,
       /\b(?:cbi|enforcement directorate|narcotics (?:bureau|department)|cyber (?:cell|crime|police)|trai|customs)\b[^.!?\n]{0,60}?\b(?:case|fir|warrant|arrest\w*|investigation|complaint|registered|money laundering)\b/giu,
       /\bmoney laundering\b/giu,
     ],

@@ -13,7 +13,7 @@ const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
 export const metadata: Metadata = { title: "Privacy & Limitations" };
 
 const AT_A_GLANCE = [
-  { icon: Cpu, title: "Analyzed on your device", body: "Rules and screenshot reading run in your browser. Text and images are never sent to a server or an AI service." },
+  { icon: Cpu, title: "Analyzed on your device", body: "Rules, a small model and screenshot reading all run in your browser. Text and images are never sent to a server or an AI service." },
   { icon: DatabaseZap, title: "Nothing saved", body: "Messages live only in page memory and disappear when you reload or close the tab." },
   { icon: EyeOff, title: "No tracking", body: "No analytics, advertising, cookies, or accounts." },
   { icon: Link2Off, title: "Links never opened", body: "Links are inspected as text. SafeClick never visits them." },
@@ -49,13 +49,17 @@ export default function PrivacyPage() {
             <div className="card overflow-hidden">
               <Disclosure title="How does the analysis work?" defaultOpen>
                 <p>
-                  When you press Analyze, a set of transparent pattern rules written in TypeScript checks the text inside your
-                  browser tab. There is no machine-learning model and no external AI service: the same message always gets the
-                  same result, and every warning points to the exact words that triggered it.
+                  When you press Analyze, two things run inside your browser tab: a set of transparent pattern rules
+                  (including an India pack for UPI, KYC, &ldquo;digital arrest&rdquo; and Hinglish/Hindi phrasing), and a
+                  small machine-learning model. There is no external AI service, and the same message always gets the same
+                  result.
                 </p>
                 <p>
-                  The name &ldquo;SafeClick AI&rdquo; refers to the product, not to a hidden model. We chose explainable rules
-                  so that results can be checked and understood.
+                  The model is a logistic regression trained on real, publicly licensed SMS datasets plus fictional messages.
+                  It is 56&nbsp;KB, ships with the app, and works by adding up weights for readable features such as words,
+                  word pairs, phone numbers and money amounts. That means every result can still be explained: SafeClick shows
+                  which words pushed the model&apos;s score up. Rules and model are combined into one score, and both can be
+                  wrong.
                 </p>
               </Disclosure>
               <Disclosure title="How do screenshots and sharing work?">
@@ -159,6 +163,10 @@ export default function PrivacyPage() {
                         <td className="px-3 py-2 tabular-nums">22</td>
                       </tr>
                       <tr>
+                        <td className="px-3 py-2 text-ink">Resembles known scam messages (on-device model)</td>
+                        <td className="px-3 py-2 tabular-nums">14 or 22</td>
+                      </tr>
+                      <tr>
                         <td className="px-3 py-2 text-ink">Uses hidden or look-alike characters</td>
                         <td className="px-3 py-2 tabular-nums">14</td>
                       </tr>
@@ -175,41 +183,49 @@ export default function PrivacyPage() {
                 </p>
               </Disclosure>
               <Disclosure title="How accurate is it?" defaultOpen>
-                <p>We measured SafeClick on two labelled datasets. These are the results of the most recent run:</p>
+                <p>
+                  We tested SafeClick on real SMS scams and genuine texts it had never seen, following an evaluation plan we
+                  published before running it. Results from the most recent run:
+                </p>
                 <ul className="grid gap-3 sm:grid-cols-2">
-                  <li className="rounded-xl border border-line p-4">
-                    <p className="text-[13px] font-medium text-ink">Fictional held-out set</p>
-                    <p className="text-xs text-ink-subtle">
-                      {evalSummary.heldout.positives} scams, {evalSummary.heldout.negatives} genuine messages
-                    </p>
-                    <p className="mt-3 text-2xl font-semibold tracking-tight text-ink tabular-nums">
-                      {pct(evalSummary.heldout.detectionRate)}
-                    </p>
-                    <p className="text-xs">of scams flagged</p>
-                    <p className="mt-2 text-2xl font-semibold tracking-tight text-ink tabular-nums">
-                      {pct(evalSummary.heldout.falseAlarmRate)}
-                    </p>
-                    <p className="text-xs">of genuine messages wrongly flagged</p>
-                  </li>
-                  <li className="rounded-xl border border-line p-4">
-                    <p className="text-[13px] font-medium text-ink">UCI SMS Spam Collection</p>
-                    <p className="text-xs text-ink-subtle">
-                      {evalSummary.sms.negatives.toLocaleString("en-US")} real personal texts, {evalSummary.sms.positives} spam
-                    </p>
-                    <p className="mt-3 text-2xl font-semibold tracking-tight text-ink tabular-nums">
-                      {pct(evalSummary.sms.falseAlarmRate)}
-                    </p>
-                    <p className="text-xs">of ordinary texts wrongly flagged</p>
-                    <p className="mt-2 text-2xl font-semibold tracking-tight text-ink tabular-nums">
-                      {pct(evalSummary.sms.detectionRate)}
-                    </p>
-                    <p className="text-xs">of spam flagged (most is marketing, not scams)</p>
-                  </li>
+                  {[
+                    {
+                      name: "New real-world scams",
+                      sub: `${evalSummary.testUnique.scams} smishing and ${evalSummary.testUnique.hams.toLocaleString("en-US")} genuine texts, held out`,
+                      data: evalSummary.testUnique,
+                      before: evalSummary.baseline.testUnique,
+                    },
+                    {
+                      name: "India set (Hinglish & Indian)",
+                      sub: `${evalSummary.india.scams} scam and ${evalSummary.india.hams} genuine messages by an independent author`,
+                      data: evalSummary.india,
+                      before: evalSummary.baseline.india,
+                    },
+                  ].map(({ name, sub, data, before }) => (
+                    <li key={name} className="rounded-xl border border-line p-4">
+                      <p className="text-[13px] font-medium text-ink">{name}</p>
+                      <p className="text-xs text-ink-subtle">{sub}</p>
+                      <p className="mt-3 text-2xl font-semibold tracking-tight text-ink tabular-nums">{pct(data.detection)}</p>
+                      <p className="text-xs">
+                        of scams flagged{" "}
+                        <span className="text-ink-subtle">
+                          (95% CI {pct(data.detectionLow)}–{pct(data.detectionHigh)}; v1 engine: {pct(before.detection)})
+                        </span>
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold tracking-tight text-ink tabular-nums">{pct(data.falseAlarm)}</p>
+                      <p className="text-xs">
+                        of genuine messages wrongly flagged{" "}
+                        <span className="text-ink-subtle">
+                          (95% CI {pct(data.falseAlarmLow)}–{pct(data.falseAlarmHigh)})
+                        </span>
+                      </p>
+                    </li>
+                  ))}
                 </ul>
                 <p>
-                  Caveats: the held-out set is small and was written by the same author as the rules, so it is likely
-                  optimistic. The SMS dataset is from around 2011 and labels spam rather than fraud. Neither is a random sample
-                  of today&apos;s scams. The full report, including every missed scam, is in{" "}
+                  Caveats: the real-world data is mostly older UK and international SMS, and the India set is small, so read
+                  the confidence intervals. Neither is a random sample of the scams people receive today. The full report,
+                  including the evaluation plan, before/after numbers and model calibration, is in{" "}
                   <span className="font-mono text-[12.5px]">eval/RESULTS.md</span> in the source code (measured{" "}
                   {evalSummary.generatedAt}).
                 </p>

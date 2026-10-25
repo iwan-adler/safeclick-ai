@@ -21,7 +21,7 @@ test("safety guide opens and works offline after a first visit", async ({ page, 
   await page.getByRole("tab").nth(2).click();
   await expect(page.getByRole("tabpanel").getByRole("heading", { name: /OTP & password protection/ })).toBeVisible();
   await page.getByText("My email and banking passwords are unique").click();
-  await expect(page.getByText("1 / 4")).toBeVisible();
+  await expect(page.getByText("1 / 5")).toBeVisible();
 
   // The analyzer itself also loads and runs offline.
   await page.goto("/");

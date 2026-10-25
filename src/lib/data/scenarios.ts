@@ -187,6 +187,72 @@ export const SCENARIOS: Scenario[] = [
     lesson: "Urgency, \"don't call\", secrecy and gift cards together are a strong warning combination. Verify separately every time.",
   },
   {
+    id: "upi-qr-buyer",
+    title: "The eager marketplace buyer",
+    context: "You listed your old phone online. A buyer agrees to your price within minutes.",
+    prompt:
+      "\"Deal! I am paying now. I've sent a QR code, just scan it and enter your UPI PIN to receive ₹12,000. Hurry please, I am posted at the border and leaving soon.\"",
+    question: "What do you do?",
+    options: [
+      {
+        id: "scan-pin",
+        text: "Scan the QR and enter your PIN. The buyer said it's to receive the money.",
+        outcome: "unsafe",
+        feedback:
+          "A UPI PIN only ever sends money out of your account. Entering it here would pay the \"buyer\" ₹12,000 instead of receiving it.",
+      },
+      {
+        id: "ask-cash",
+        text: "Say you'll only accept the money if they send it to your UPI ID, with no QR or PIN needed on your side.",
+        outcome: "safest",
+        feedback:
+          "Exactly. Receiving money never requires your PIN, a QR scan or approving a request. A genuine buyer can simply pay your UPI ID.",
+      },
+      {
+        id: "small-test",
+        text: "Ask them to send ₹1 first as a test, then scan the QR for the rest.",
+        outcome: "partial",
+        feedback:
+          "Scammers often send a small amount to build trust. The QR and PIN step afterwards still sends your money to them.",
+      },
+    ],
+    lesson:
+      "You never enter a UPI PIN, scan a QR code or approve a collect request to receive money. If someone insists, it's a scam, however urgent or official their story sounds.",
+  },
+  {
+    id: "digital-arrest-call",
+    title: "The video call from \"CBI\"",
+    context: "An unknown number video-calls you. A man in uniform sits in what looks like a police station.",
+    prompt:
+      "\"Your Aadhaar is linked to a money-laundering case. You are under digital arrest. Do not disconnect or tell anyone. Transfer your savings to the RBI verification account so we can check it is clean.\"",
+    question: "What is the safest response?",
+    options: [
+      {
+        id: "comply",
+        text: "Stay on the call and transfer the money. They have your Aadhaar details, so they must be real.",
+        outcome: "unsafe",
+        feedback:
+          "Aadhaar numbers leak widely. \"Digital arrest\" is not a real legal procedure, and no agency asks you to move money to prove your innocence.",
+      },
+      {
+        id: "hang-up-report",
+        text: "Hang up, tell a family member, and report it to the cyber-crime helpline (1930) or cybercrime.gov.in.",
+        outcome: "safest",
+        feedback:
+          "Right. Ending the call breaks their pressure, telling someone breaks the secrecy, and reporting helps stop the same people targeting others.",
+      },
+      {
+        id: "argue",
+        text: "Stay on the call and argue that you are innocent until they believe you.",
+        outcome: "partial",
+        feedback:
+          "Staying on the call keeps you under their control. The longer it lasts, the more pressure they can apply.",
+      },
+    ],
+    lesson:
+      "Real police, CBI or customs officers never arrest people over video calls, demand secrecy from family, or ask for money transfers. Hang up and talk to someone you trust.",
+  },
+  {
     id: "signin-alert",
     title: "The sign-in alert",
     context: "You receive an email about your student portal account.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Info } from "lucide-react";
+import { BrainCircuit, ChevronDown, Info } from "lucide-react";
 import { useEffect, useId, useState } from "react";
 import { LEVEL_COPY, LEVEL_THRESHOLDS, type AnalysisResult } from "@/lib/analysis";
 import { Badge, cn } from "../ui/primitives";
@@ -109,6 +109,18 @@ export function RiskSummary({ result }: { result: AnalysisResult }) {
 
         <Scale score={result.score} />
 
+        {result.model && (
+          <p className="mt-4 flex items-center gap-2 text-[12.5px] text-ink-muted">
+            <BrainCircuit aria-hidden="true" className="h-4 w-4 shrink-0 text-lavender-700" />
+            <span>
+              On-device pattern model:{" "}
+              <strong className="font-semibold text-ink tabular-nums">{Math.round(result.model.probability * 100)}%</strong>{" "}
+              resemblance to known scam messages
+              {result.model.band === "low" ? " (below its warning threshold)" : ""}.
+            </span>
+          </p>
+        )}
+
         <button
           type="button"
           aria-expanded={open}
@@ -121,8 +133,8 @@ export function RiskSummary({ result }: { result: AnalysisResult }) {
         </button>
         <div id={panelId} hidden={!open} className="mt-2 space-y-2 rounded-xl bg-sunken p-4 text-[13px] leading-relaxed text-ink-muted">
           <p>
-            The score adds up the warning patterns found in the text. Stronger patterns (like asking for a code) count more
-            than weaker ones (like a generic greeting). Patterns describing the same tactic are not counted twice, and some
+            The score adds up the warning patterns found in the text, plus the on-device model when it recognizes a scam-like
+            message. Stronger patterns (like asking for a code) count more than weaker ones (like a generic greeting). Patterns describing the same tactic are not counted twice, and some
             combinations that are typical of scams add a small, fixed amount.
           </p>
           <p>

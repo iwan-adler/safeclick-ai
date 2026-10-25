@@ -107,6 +107,8 @@ test("learning mode: answer, get feedback, finish, restart", async ({ page }) =>
     /Find the company's official careers page/,
     /Check the tracking number/,
     /Check with your manager in person/,
+    /only accept the money if they send it to your UPI ID/,
+    /Hang up, tell a family member/,
     /Open the portal by typing its address/,
   ];
   for (const name of safest) {
@@ -115,11 +117,11 @@ test("learning mode: answer, get feedback, finish, restart", async ({ page }) =>
     await expect(page.getByRole("status").filter({ hasText: "Safest choice" })).toBeVisible();
   }
   await page.getByRole("button", { name: "See summary" }).click();
-  await expect(page.getByText(/safest option in 5 of 6/)).toBeVisible();
+  await expect(page.getByText(/safest option in 7 of 8/)).toBeVisible();
   await expect(page.getByText(/not a measure of how secure you/)).toBeVisible();
 
   await page.getByRole("button", { name: "Restart training" }).click();
-  await expect(page.getByText("0 of 6 answered")).toBeVisible();
+  await expect(page.getByText("0 of 8 answered")).toBeVisible();
 });
 
 test("safety guide: keyboard tabs, steps and checklist", async ({ page }) => {

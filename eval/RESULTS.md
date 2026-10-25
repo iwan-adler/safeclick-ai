@@ -1,121 +1,63 @@
-# SafeClick AI: Accuracy Report
+# SafeClick AI: Accuracy Report (v2, real-world data)
 
-Generated 2026-10-20 by `npm run eval`. All numbers below come from running the current analysis engine; nothing is hand-edited.
+Generated 2026-10-25 from commit `4ab03ce` by `npm run eval`, following the pre-registered [protocol](PROTOCOL.md) and its amendments. Numbers are computed, not hand-edited. A message is **flagged** when rated *Needs caution* or *High concern*.
 
-A message counts as **flagged** when SafeClick rates it *Needs caution* or *High concern*.
+Columns: the **v1** engine (frozen copy of commit `631ba39`), **v2 rules** alone, and **v2 rules + on-device model** (what the app ships).
 
-| Dataset | Positives / negatives | Detection rate | False alarm rate | Precision | High concern (positives) | High concern (negatives) | Speed |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Held-out fictional set (scam vs. genuine) | 40 / 40 | **82.5%** (33/40) | **0.0%** (0/40) | 100.0% | 22.5% | 0.0% | 0.37 ms |
-| UCI SMS Spam Collection (spam vs. ham) | 747 / 4827 | **6.7%** (50/747) | **0.3%** (15/4827) | 76.9% | 0.0% | 0.0% | 0.04 ms |
+## Scams flagged (detection)
 
-## How to read this
-
-- **Detection rate:** share of scam (or spam) messages flagged.
-- **False alarm rate:** share of genuine messages flagged. For a tool people may rely on, this matters as much as detection.
-- **Speed:** average analysis time per message, in Node.js on the machine that ran the evaluation.
-
-## Held-out fictional set
-
-80 fictional messages (40 scams, 40 genuine) in [heldout.ts](heldout.ts), written separately from the in-app examples and unit tests and frozen before the first evaluation run. The rules were not changed in response to these results.
-
-**Important caveat:** the same author wrote the rules and this set, so these numbers are likely optimistic. Message `s40` is deliberately included: it is the documented limitation from the demo script (a polite, pressure-free payment request).
-
-### By category
-
-| Category | Flagged / total | Label |
-| --- | --- | --- |
-| Accounts | 4 / 4 | scam |
-| Banking | 1 / 3 | scam |
-| Charity | 1 / 1 | scam |
-| Delivery | 2 / 3 | scam |
-| Family | 3 / 3 | scam |
-| Government | 1 / 1 | scam |
-| Investment | 1 / 2 | scam |
-| Jobs | 3 / 4 | scam |
-| Loans | 1 / 1 | scam |
-| Marketplace | 2 / 2 | scam |
-| Prizes | 2 / 3 | scam |
-| QR | 1 / 1 | scam |
-| Rental | 1 / 1 | scam |
-| Romance | 1 / 1 | scam |
-| Shopping | 1 / 1 | scam |
-| Subscription | 1 / 1 | scam |
-| Subtle | 0 / 1 | scam |
-| Tax | 2 / 2 | scam |
-| Tech support | 2 / 2 | scam |
-| Utilities | 1 / 1 | scam |
-| Workplace | 2 / 2 | scam |
-| Accounts | 0 / 2 | genuine |
-| Appointments | 0 / 1 | genuine |
-| Banking | 0 / 3 | genuine |
-| Community | 0 / 1 | genuine |
-| Delivery | 0 / 3 | genuine |
-| Events | 0 / 1 | genuine |
-| Family | 0 / 2 | genuine |
-| Friends | 0 / 4 | genuine |
-| Gym | 0 / 1 | genuine |
-| Health | 0 / 1 | genuine |
-| Jobs | 0 / 2 | genuine |
-| Marketing | 0 / 2 | genuine |
-| Marketplace | 0 / 1 | genuine |
-| OTP | 0 / 2 | genuine |
-| Receipts | 0 / 2 | genuine |
-| Rent | 0 / 1 | genuine |
-| School | 0 / 1 | genuine |
-| Security | 0 / 1 | genuine |
-| Splitting bills | 0 / 1 | genuine |
-| Travel | 0 / 2 | genuine |
-| University | 0 / 2 | genuine |
-| Utilities | 0 / 1 | genuine |
-| Work | 0 / 3 | genuine |
-
-### Missed scams
-
-| Id | Category | Score | Message |
+| Set | v1 | v2 rules | v2 rules + model |
 | --- | --- | --- | --- |
-| s02 | Banking | 10 | FRAUD TEAM: we stopped a payment of $899. If this wasn't you, reply with the 6 digit code we just sent so we can reverse it. |
-| s07 | Jobs | 16 | Hiring now! Remote product reviewer. Earn $350 per day from your phone, no experience required. Message me on Telegram to start. |
-| s21 | Investment | 18 | Exclusive crypto investment opportunity: guaranteed 20% weekly profit. My mentor is a trader with insider tips. Limited spots! |
-| s33 | Banking | 15 | Dear customer, your account is on hold. Click the link to verify your identity: https://secure-banking-login.example |
-| s34 | Delivery | 0 | We tried to deliver your package. Schedule redelivery at www.redeliver-now.example |
-| s37 | Prizes | 16 | Your survey reward is ready. Claim your free iPhone now. |
-| s40 | Subtle | 0 | Hi, it's Jordan from the housing office. Could you confirm your new move-in date and send the deposit to the account below when you get a... |
+| **Test-unique** (headline: held out, no near-duplicates of dev) | **14.0%**<br><sub>15/107 · CI 8.7%–21.8%</sub> | **58.9%**<br><sub>63/107 · CI 49.4%–67.7%</sub> | **85.0%**<br><sub>91/107 · CI 77.1%–90.6%</sub> |
+| Test (all held-out messages) | **22.0%**<br><sub>58/264 · CI 17.4%–27.3%</sub> | **75.4%**<br><sub>199/264 · CI 69.8%–80.2%</sub> | **93.6%**<br><sub>247/264 · CI 89.9%–95.9%</sub> |
+| **India** (independent author, Hinglish/Indian) | **66.0%**<br><sub>31/47 · CI 51.7%–77.8%</sub> | **80.9%**<br><sub>38/47 · CI 67.5%–89.6%</sub> | **85.1%**<br><sub>40/47 · CI 72.3%–92.6%</sub> |
+| Dev (used for tuning and training) | **16.8%**<br><sub>50/298 · CI 13.0%–21.4%</sub> | **76.5%**<br><sub>228/298 · CI 71.4%–81.0%</sub> | **96.3%**<br><sub>287/298 · CI 93.5%–97.9%</sub> |
 
-### False alarms on genuine messages
+## Genuine messages wrongly flagged (false alarms)
 
-| Id | Category | Level | Signals | Message |
-| --- | --- | --- | --- | --- |
+| Set | v1 | v2 rules | v2 rules + model |
+| --- | --- | --- | --- |
+| **Test-unique** (headline: held out, no near-duplicates of dev) | **0.2%**<br><sub>5/2393 · CI 0.1%–0.5%</sub> | **0.3%**<br><sub>7/2393 · CI 0.1%–0.6%</sub> | **0.3%**<br><sub>7/2393 · CI 0.1%–0.6%</sub> |
+| Test (all held-out messages) | **0.2%**<br><sub>6/2636 · CI 0.1%–0.5%</sub> | **0.3%**<br><sub>7/2636 · CI 0.1%–0.5%</sub> | **0.3%**<br><sub>7/2636 · CI 0.1%–0.5%</sub> |
+| **India** (independent author, Hinglish/Indian) | **2.5%**<br><sub>1/40 · CI 0.4%–12.9%</sub> | **2.5%**<br><sub>1/40 · CI 0.4%–12.9%</sub> | **2.5%**<br><sub>1/40 · CI 0.4%–12.9%</sub> |
+| Dev (used for tuning and training) | **0.3%**<br><sub>8/2545 · CI 0.2%–0.6%</sub> | **0.3%**<br><sub>7/2545 · CI 0.1%–0.6%</sub> | **0.3%**<br><sub>7/2545 · CI 0.1%–0.6%</sub> |
 
-## UCI SMS Spam Collection
+Set sizes (scam / genuine): testUnique 107/2393 · test 264/2636 · india 47/40 · dev 298/2545. Speed (rules + model): 0.08 ms per message in Node.js.
 
-5,574 real SMS messages (747 spam, 4827 ham) collected around 2011, mostly from the UK and Singapore. Source: Almeida, T. & Hidalgo, J. (2011), [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/228/sms+spam+collection), CC BY 4.0. Downloaded at evaluation time from https://archive.ics.uci.edu/static/public/228/sms+spam+collection.zip and not redistributed. Individual messages are not reproduced here.
+## Model quality on test-unique
 
-**Caveat:** *spam* is not the same as *scam*. Much of this spam is premium-rate marketing that SafeClick is not designed to flag, so detection is expected to be lower here. The most useful number is the **false alarm rate on ham**: how often SafeClick worries about ordinary personal texts.
+AUC **0.996** · Brier score **0.0044** (2500 messages).
 
-Rules most often involved in false alarms on ham:
+Calibration: when the model gives a probability in a range, how often the message is actually a scam.
 
-- `account-threat`: 6
-- `personal-info`: 4
-- `payment-request`: 3
-- `urgency`: 3
-- `impersonation`: 3
-- `credential-request`: 2
+| Model probability | Messages | Mean predicted | Actually scam |
+| --- | --- | --- | --- |
+| 0.0–0.1 | 2390 | 0.9% | 0.2% |
+| 0.1–0.3 | 11 | 16.8% | 36.4% |
+| 0.3–0.5 | 7 | 42.2% | 100.0% |
+| 0.5–0.7 | 7 | 60.6% | 100.0% |
+| 0.7–0.9 | 18 | 82.1% | 100.0% |
+| 0.9–1.0 | 67 | 98.1% | 100.0% |
 
-Rules most often firing on flagged spam:
+## Data
 
-- `unexpected-benefit`: 44
-- `urgency`: 36
-- `impersonation`: 10
-- `payment-request`: 2
-- `credential-request`: 2
-- `suspicious-link`: 2
+- **Test and dev:** the [Mishra & Soni (2022) SMS Phishing Dataset](https://data.mendeley.com/datasets/f45bkkt8pr/1) and the [UCI SMS Spam Collection](https://archive.ics.uci.edu/dataset/228/sms+spam+collection), merged, de-duplicated and split 50/50 by a hash of each message. Scam = smishing; genuine = ham. Both CC BY 4.0, downloaded at evaluation time, not redistributed.
+- **Test-unique** removes test messages that are near-duplicates of dev messages (same text without digits, or ≥ 70% word overlap). Many scam texts are templates, so this is the fairest estimate of performance on new messages.
+- **India:** hand-written Hinglish and Indian-context messages from the [Bolewar (2026) dataset](https://huggingface.co/datasets/bolewara/hinglish-scam-text-dataset) (CC BY 4.0), excluding rows copied from UCI. A different author; never used for tuning or training.
+- Dataset artifacts (anonymization placeholders such as `&lt;#&gt;`, mis-decoded characters) are cleaned before analysis; the dev/test assignment is unaffected.
+- Individual real-world messages are not reproduced in this report.
 
-Missed spam with no signals at all: 541 of 697.
+## Marketing spam (not the target)
 
-## Limitations of this evaluation
+SafeClick flags 62.8% (223/355; 95% CI 57.7%–67.7%) of test-set marketing spam. This is reported for transparency and is not counted as detection or false alarm.
 
-- Neither dataset is a random sample of the scams people receive today.
-- The held-out set is small and was written by the rule author.
-- The SMS dataset is old, English-only, and labels spam rather than fraud.
-- Results describe pattern matching on text only. They say nothing about links' real destinations or senders' identities.
+## The original fictional set (v1 held-out)
+
+The 80 messages in [heldout.ts](heldout.ts) are **no longer held out** (their misses motivated v2 changes, and they are in the model's training data). For history only: scams flagged 95.0% (38/40; 95% CI 83.5%–98.6%); genuine wrongly flagged 0.0% (0/40; 95% CI 0.0%–8.8%).
+
+## Honest caveats
+
+- Dev/test data is dominated by older UK SMS and international smishing. It is not a random sample of the scams people receive in India today.
+- The India set is small; read its confidence intervals. Six of its messages were seen while inspecting the dataset's format, before the protocol was written; no rule was written for them.
+- Rules were improved using dev data and general knowledge of scam tactics. The model was trained on dev plus fictional messages. Test, test-unique and india results were computed once, after all changes.
+- Pattern matching and the model see text only. Neither can check a link's real destination or a sender's identity.

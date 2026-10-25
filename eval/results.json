@@ -1,793 +1,598 @@
 {
-  "generatedAt": "2026-10-20",
-  "heldout": {
-    "metrics": {
-      "positives": 40,
-      "negatives": 40,
-      "truePositives": 33,
-      "falseNegatives": 7,
-      "falsePositives": 0,
-      "trueNegatives": 40,
-      "detectionRate": 0.825,
-      "falseAlarmRate": 0,
-      "precision": 1,
-      "highOnPositives": 0.225,
-      "highOnNegatives": 0,
-      "msPerMessage": 0.3714350000000003
+  "generatedAt": "2026-10-25",
+  "commit": "4ab03ce",
+  "baseline": {
+    "dev": {
+      "scams": 298,
+      "hams": 2545,
+      "spams": 329,
+      "detection": {
+        "value": 0.16778523489932887,
+        "hits": 50,
+        "total": 298,
+        "low": 0.12964572772284944,
+        "high": 0.21438107308923215
+      },
+      "falseAlarm": {
+        "value": 0.003143418467583497,
+        "hits": 8,
+        "total": 2545,
+        "low": 0.0015936608136892338,
+        "high": 0.006190895119484487
+      },
+      "spamFlagged": {
+        "value": 0.07598784194528875,
+        "hits": 25,
+        "total": 329,
+        "low": 0.05199669920428329,
+        "high": 0.10976673421269342
+      },
+      "precision": 0.8620689655172413,
+      "highOnScams": {
+        "value": 0,
+        "hits": 0,
+        "total": 298,
+        "low": 0,
+        "high": 0.012727205262627815
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2545,
+        "low": 0,
+        "high": 0.0015071944839569473
+      },
+      "msPerMessage": 0.045972856242118554
     },
-    "results": [
-      {
-        "id": "s01",
-        "positive": true,
-        "category": "Banking",
-        "level": "high",
-        "score": 54,
-        "signals": [
-          "credential-request",
-          "personal-info",
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s02",
-        "positive": true,
-        "category": "Banking",
-        "level": "lower",
-        "score": 10,
-        "signals": [
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s03",
-        "positive": true,
-        "category": "Delivery",
-        "level": "caution",
-        "score": 44,
-        "signals": [
-          "payment-request",
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s04",
-        "positive": true,
-        "category": "Delivery",
-        "level": "caution",
-        "score": 36,
-        "signals": [
-          "payment-request",
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s05",
-        "positive": true,
-        "category": "Tax",
-        "level": "caution",
-        "score": 49,
-        "signals": [
-          "personal-info",
-          "unexpected-benefit",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s06",
-        "positive": true,
-        "category": "Tax",
-        "level": "high",
-        "score": 56,
-        "signals": [
-          "payment-request",
-          "account-threat",
-          "urgency",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s07",
-        "positive": true,
-        "category": "Jobs",
-        "level": "lower",
-        "score": 16,
-        "signals": [
-          "unexpected-benefit"
-        ]
-      },
-      {
-        "id": "s08",
-        "positive": true,
-        "category": "Jobs",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s09",
-        "positive": true,
-        "category": "Family",
-        "level": "caution",
-        "score": 49,
-        "signals": [
-          "payment-request",
-          "bypass-verification"
-        ]
-      },
-      {
-        "id": "s10",
-        "positive": true,
-        "category": "Family",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s11",
-        "positive": true,
-        "category": "Tech support",
-        "level": "caution",
-        "score": 46,
-        "signals": [
-          "remote-access",
-          "urgency"
-        ]
-      },
-      {
-        "id": "s12",
-        "positive": true,
-        "category": "Accounts",
-        "level": "high",
-        "score": 77,
-        "signals": [
-          "credential-request",
-          "account-threat",
-          "urgency",
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s13",
-        "positive": true,
-        "category": "Accounts",
-        "level": "caution",
-        "score": 20,
-        "signals": [
-          "account-threat"
-        ]
-      },
-      {
-        "id": "s14",
-        "positive": true,
-        "category": "Prizes",
-        "level": "high",
-        "score": 55,
-        "signals": [
-          "payment-request",
-          "unexpected-benefit",
-          "urgency"
-        ]
-      },
-      {
-        "id": "s15",
-        "positive": true,
-        "category": "Prizes",
-        "level": "caution",
-        "score": 36,
-        "signals": [
-          "personal-info",
-          "unexpected-benefit"
-        ]
-      },
-      {
-        "id": "s16",
-        "positive": true,
-        "category": "Workplace",
-        "level": "high",
-        "score": 71,
-        "signals": [
-          "payment-request",
-          "secrecy",
-          "urgency",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s17",
-        "positive": true,
-        "category": "Workplace",
-        "level": "caution",
-        "score": 43,
-        "signals": [
-          "credential-request",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s18",
-        "positive": true,
-        "category": "Utilities",
-        "level": "caution",
-        "score": 29,
-        "signals": [
-          "bypass-verification",
-          "urgency"
-        ]
-      },
-      {
-        "id": "s19",
-        "positive": true,
-        "category": "Marketplace",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s20",
-        "positive": true,
-        "category": "Rental",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s21",
-        "positive": true,
-        "category": "Investment",
-        "level": "lower",
-        "score": 18,
-        "signals": [
-          "investment-pitch"
-        ]
-      },
-      {
-        "id": "s22",
-        "positive": true,
-        "category": "Subscription",
-        "level": "caution",
-        "score": 30,
-        "signals": [
-          "urgency",
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s23",
-        "positive": true,
-        "category": "Loans",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s24",
-        "positive": true,
-        "category": "Charity",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s25",
-        "positive": true,
-        "category": "Accounts",
-        "level": "caution",
-        "score": 30,
-        "signals": [
-          "credential-request"
-        ]
-      },
-      {
-        "id": "s26",
-        "positive": true,
-        "category": "Shopping",
-        "level": "high",
-        "score": 53,
-        "signals": [
-          "suspicious-link",
-          "personal-info"
-        ]
-      },
-      {
-        "id": "s27",
-        "positive": true,
-        "category": "Tech support",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "remote-access"
-        ]
-      },
-      {
-        "id": "s28",
-        "positive": true,
-        "category": "Government",
-        "level": "caution",
-        "score": 49,
-        "signals": [
-          "personal-info",
-          "unexpected-benefit",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s29",
-        "positive": true,
-        "category": "Romance",
-        "level": "high",
-        "score": 50,
-        "signals": [
-          "payment-request",
-          "trust-then-request"
-        ]
-      },
-      {
-        "id": "s30",
-        "positive": true,
-        "category": "Investment",
-        "level": "high",
-        "score": 69,
-        "signals": [
-          "payment-request",
-          "trust-then-request",
-          "investment-pitch"
-        ]
-      },
-      {
-        "id": "s31",
-        "positive": true,
-        "category": "Jobs",
-        "level": "caution",
-        "score": 39,
-        "signals": [
-          "payment-request",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s32",
-        "positive": true,
-        "category": "Marketplace",
-        "level": "caution",
-        "score": 47,
-        "signals": [
-          "personal-info",
-          "channel-switch",
-          "impersonation"
-        ]
-      },
-      {
-        "id": "s33",
-        "positive": true,
-        "category": "Banking",
-        "level": "lower",
-        "score": 15,
-        "signals": [
-          "suspicious-link",
-          "generic-greeting"
-        ]
-      },
-      {
-        "id": "s34",
-        "positive": true,
-        "category": "Delivery",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "s35",
-        "positive": true,
-        "category": "Accounts",
-        "level": "caution",
-        "score": 20,
-        "signals": [
-          "suspicious-link"
-        ]
-      },
-      {
-        "id": "s36",
-        "positive": true,
-        "category": "Family",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "payment-request"
-        ]
-      },
-      {
-        "id": "s37",
-        "positive": true,
-        "category": "Prizes",
-        "level": "lower",
-        "score": 16,
-        "signals": [
-          "unexpected-benefit"
-        ]
-      },
-      {
-        "id": "s38",
-        "positive": true,
-        "category": "Jobs",
-        "level": "high",
-        "score": 61,
-        "signals": [
-          "payment-request",
-          "personal-info",
-          "unexpected-benefit"
-        ]
-      },
-      {
-        "id": "s39",
-        "positive": true,
-        "category": "QR",
-        "level": "caution",
-        "score": 26,
-        "signals": [
-          "account-threat",
-          "urgency"
-        ]
-      },
-      {
-        "id": "s40",
-        "positive": true,
-        "category": "Subtle",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l01",
-        "positive": false,
-        "category": "OTP",
-        "level": "lower",
-        "score": 14,
-        "signals": [
-          "urgency"
-        ]
-      },
-      {
-        "id": "l02",
-        "positive": false,
-        "category": "OTP",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l03",
-        "positive": false,
-        "category": "Banking",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l04",
-        "positive": false,
-        "category": "Banking",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l05",
-        "positive": false,
-        "category": "Delivery",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l06",
-        "positive": false,
-        "category": "Delivery",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l07",
-        "positive": false,
-        "category": "Appointments",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l08",
-        "positive": false,
-        "category": "Marketing",
-        "level": "lower",
-        "score": 14,
-        "signals": [
-          "urgency"
-        ]
-      },
-      {
-        "id": "l09",
-        "positive": false,
-        "category": "Marketing",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l10",
-        "positive": false,
-        "category": "Friends",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l11",
-        "positive": false,
-        "category": "Friends",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l12",
-        "positive": false,
-        "category": "Friends",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l13",
-        "positive": false,
-        "category": "Family",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l14",
-        "positive": false,
-        "category": "Work",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l15",
-        "positive": false,
-        "category": "Work",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l16",
-        "positive": false,
-        "category": "University",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l17",
-        "positive": false,
-        "category": "University",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l18",
-        "positive": false,
-        "category": "Rent",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l19",
-        "positive": false,
-        "category": "Utilities",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l20",
-        "positive": false,
-        "category": "Accounts",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l21",
-        "positive": false,
-        "category": "Accounts",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l22",
-        "positive": false,
-        "category": "Receipts",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l23",
-        "positive": false,
-        "category": "Receipts",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l24",
-        "positive": false,
-        "category": "Health",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l25",
-        "positive": false,
-        "category": "Travel",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l26",
-        "positive": false,
-        "category": "Travel",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l27",
-        "positive": false,
-        "category": "Jobs",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l28",
-        "positive": false,
-        "category": "Jobs",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l29",
-        "positive": false,
-        "category": "Marketplace",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l30",
-        "positive": false,
-        "category": "Community",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l31",
-        "positive": false,
-        "category": "School",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l32",
-        "positive": false,
-        "category": "Gym",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l33",
-        "positive": false,
-        "category": "Banking",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l34",
-        "positive": false,
-        "category": "Friends",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l35",
-        "positive": false,
-        "category": "Family",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l36",
-        "positive": false,
-        "category": "Work",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l37",
-        "positive": false,
-        "category": "Splitting bills",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l38",
-        "positive": false,
-        "category": "Security",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l39",
-        "positive": false,
-        "category": "Delivery",
-        "level": "lower",
-        "score": 0,
-        "signals": []
-      },
-      {
-        "id": "l40",
-        "positive": false,
-        "category": "Events",
-        "level": "lower",
-        "score": 0,
-        "signals": []
+    "test": {
+      "scams": 264,
+      "hams": 2636,
+      "spams": 355,
+      "detection": {
+        "value": 0.2196969696969697,
+        "hits": 58,
+        "total": 264,
+        "low": 0.17396839945715126,
+        "high": 0.27346620368142016
+      },
+      "falseAlarm": {
+        "value": 0.002276176024279211,
+        "hits": 6,
+        "total": 2636,
+        "low": 0.0010435822301962496,
+        "high": 0.004957383888376925
+      },
+      "spamFlagged": {
+        "value": 0.05070422535211268,
+        "hits": 18,
+        "total": 355,
+        "low": 0.03231009972604614,
+        "high": 0.0787182760252603
+      },
+      "precision": 0.90625,
+      "highOnScams": {
+        "value": 0.007575757575757576,
+        "hits": 2,
+        "total": 264,
+        "low": 0.0020799668593143705,
+        "high": 0.027197038654392235
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2636,
+        "low": 0,
+        "high": 0.001455238829481284
+      },
+      "msPerMessage": 0.027948387096774188
+    },
+    "testUnique": {
+      "scams": 107,
+      "hams": 2393,
+      "spams": 197,
+      "detection": {
+        "value": 0.14018691588785046,
+        "hits": 15,
+        "total": 107,
+        "low": 0.08683152059205125,
+        "high": 0.21848345140402237
+      },
+      "falseAlarm": {
+        "value": 0.002089427496865859,
+        "hits": 5,
+        "total": 2393,
+        "low": 0.0008927853464798688,
+        "high": 0.004882147798872749
+      },
+      "spamFlagged": {
+        "value": 0.030456852791878174,
+        "hits": 6,
+        "total": 197,
+        "low": 0.014031696125459774,
+        "high": 0.0648443932902788
+      },
+      "precision": 0.75,
+      "highOnScams": {
+        "value": 0.018691588785046728,
+        "hits": 2,
+        "total": 107,
+        "low": 0.005140857096348456,
+        "high": 0.06560514440489296
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2393,
+        "low": 0,
+        "high": 0.0016027759197770933
+      },
+      "msPerMessage": 0.025982869855394827
+    },
+    "india": {
+      "scams": 47,
+      "hams": 40,
+      "spams": 0,
+      "detection": {
+        "value": 0.6595744680851063,
+        "hits": 31,
+        "total": 47,
+        "low": 0.5167065950530297,
+        "high": 0.7783273928623781
+      },
+      "falseAlarm": {
+        "value": 0.025,
+        "hits": 1,
+        "total": 40,
+        "low": 0.0044267174077949195,
+        "high": 0.1288165948800778
+      },
+      "spamFlagged": {
+        "value": 0,
+        "hits": 0,
+        "total": 0,
+        "low": 0,
+        "high": 0
+      },
+      "precision": 0.96875,
+      "highOnScams": {
+        "value": 0.10638297872340426,
+        "hits": 5,
+        "total": 47,
+        "low": 0.046304099555199416,
+        "high": 0.22594539692012788
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 40,
+        "low": 0,
+        "high": 0.08762453925039232
+      },
+      "msPerMessage": 0.03479999999999877
+    }
+  },
+  "rules": {
+    "testUnique": {
+      "scams": 107,
+      "hams": 2393,
+      "spams": 197,
+      "detection": {
+        "value": 0.5887850467289719,
+        "hits": 63,
+        "total": 107,
+        "low": 0.4940515755657607,
+        "high": 0.6773642105650783
+      },
+      "falseAlarm": {
+        "value": 0.0029251984956122023,
+        "hits": 7,
+        "total": 2393,
+        "low": 0.0014176729361117003,
+        "high": 0.006026123099471127
+      },
+      "spamFlagged": {
+        "value": 0.27918781725888325,
+        "hits": 55,
+        "total": 197,
+        "low": 0.22122541793113537,
+        "high": 0.3455973916859958
+      },
+      "precision": 0.9,
+      "highOnScams": {
+        "value": 0.14018691588785046,
+        "hits": 15,
+        "total": 107,
+        "low": 0.08683152059205125,
+        "high": 0.21848345140402237
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2393,
+        "low": 0,
+        "high": 0.0016027759197770933
+      },
+      "msPerMessage": 0.08949243604004443
+    },
+    "test": {
+      "scams": 264,
+      "hams": 2636,
+      "spams": 355,
+      "detection": {
+        "value": 0.7537878787878788,
+        "hits": 199,
+        "total": 264,
+        "low": 0.698425941478212,
+        "high": 0.8018697556801083
+      },
+      "falseAlarm": {
+        "value": 0.002655538694992413,
+        "hits": 7,
+        "total": 2636,
+        "low": 0.0012869260835051393,
+        "high": 0.005471661249916685
+      },
+      "spamFlagged": {
+        "value": 0.352112676056338,
+        "hits": 125,
+        "total": 355,
+        "low": 0.30425139106859106,
+        "high": 0.4031403940533123
+      },
+      "precision": 0.9660194174757282,
+      "highOnScams": {
+        "value": 0.25,
+        "hits": 66,
+        "total": 264,
+        "low": 0.20160365349603246,
+        "high": 0.30556774930323394
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2636,
+        "low": 0,
+        "high": 0.001455238829481284
+      },
+      "msPerMessage": 0.05659115207373276
+    },
+    "india": {
+      "scams": 47,
+      "hams": 40,
+      "spams": 0,
+      "detection": {
+        "value": 0.8085106382978723,
+        "hits": 38,
+        "total": 47,
+        "low": 0.674557199356223,
+        "high": 0.8958418439468988
+      },
+      "falseAlarm": {
+        "value": 0.025,
+        "hits": 1,
+        "total": 40,
+        "low": 0.0044267174077949195,
+        "high": 0.1288165948800778
+      },
+      "spamFlagged": {
+        "value": 0,
+        "hits": 0,
+        "total": 0,
+        "low": 0,
+        "high": 0
+      },
+      "precision": 0.9743589743589743,
+      "highOnScams": {
+        "value": 0.2765957446808511,
+        "hits": 13,
+        "total": 47,
+        "low": 0.16936405991152936,
+        "high": 0.41758835700689967
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 40,
+        "low": 0,
+        "high": 0.08762453925039232
+      },
+      "msPerMessage": 0.10486091954022811
+    },
+    "dev": {
+      "scams": 298,
+      "hams": 2545,
+      "spams": 329,
+      "detection": {
+        "value": 0.7651006711409396,
+        "hits": 228,
+        "total": 298,
+        "low": 0.7137815249305632,
+        "high": 0.8096718360375736
+      },
+      "falseAlarm": {
+        "value": 0.00275049115913556,
+        "hits": 7,
+        "total": 2545,
+        "low": 0.0013329632385886366,
+        "high": 0.005666922513432987
+      },
+      "spamFlagged": {
+        "value": 0.3677811550151976,
+        "hits": 121,
+        "total": 329,
+        "low": 0.31748043981162466,
+        "high": 0.42113396415711
+      },
+      "precision": 0.9702127659574468,
+      "highOnScams": {
+        "value": 0.2181208053691275,
+        "hits": 65,
+        "total": 298,
+        "low": 0.1749812553037287,
+        "high": 0.26843542417318894
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2545,
+        "low": 0,
+        "high": 0.0015071944839569473
+      },
+      "msPerMessage": 0.05644798234552344
+    }
+  },
+  "hybrid": {
+    "testUnique": {
+      "scams": 107,
+      "hams": 2393,
+      "spams": 197,
+      "detection": {
+        "value": 0.8504672897196262,
+        "hits": 91,
+        "total": 107,
+        "low": 0.7708287680780948,
+        "high": 0.9058124929646907
+      },
+      "falseAlarm": {
+        "value": 0.0029251984956122023,
+        "hits": 7,
+        "total": 2393,
+        "low": 0.0014176729361117003,
+        "high": 0.006026123099471127
+      },
+      "spamFlagged": {
+        "value": 0.5126903553299492,
+        "hits": 101,
+        "total": 197,
+        "low": 0.44331834741068527,
+        "high": 0.5815768934159163
+      },
+      "precision": 0.9285714285714286,
+      "highOnScams": {
+        "value": 0.2897196261682243,
+        "hits": 31,
+        "total": 107,
+        "low": 0.21224200748413424,
+        "high": 0.3817732358901945
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2393,
+        "low": 0,
+        "high": 0.0016027759197770933
+      },
+      "msPerMessage": 0.07397634408602145
+    },
+    "test": {
+      "scams": 264,
+      "hams": 2636,
+      "spams": 355,
+      "detection": {
+        "value": 0.9356060606060606,
+        "hits": 247,
+        "total": 264,
+        "low": 0.899305771130492,
+        "high": 0.9594107239919981
+      },
+      "falseAlarm": {
+        "value": 0.002655538694992413,
+        "hits": 7,
+        "total": 2636,
+        "low": 0.0012869260835051393,
+        "high": 0.005471661249916685
+      },
+      "spamFlagged": {
+        "value": 0.6281690140845071,
+        "hits": 223,
+        "total": 355,
+        "low": 0.5767728076213351,
+        "high": 0.6768209786063487
+      },
+      "precision": 0.9724409448818898,
+      "highOnScams": {
+        "value": 0.4659090909090909,
+        "hits": 123,
+        "total": 264,
+        "low": 0.40665467052090293,
+        "high": 0.5261414298608152
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2636,
+        "low": 0,
+        "high": 0.001455238829481284
+      },
+      "msPerMessage": 0.07519926267281106
+    },
+    "india": {
+      "scams": 47,
+      "hams": 40,
+      "spams": 0,
+      "detection": {
+        "value": 0.851063829787234,
+        "hits": 40,
+        "total": 47,
+        "low": 0.7231410342888723,
+        "high": 0.925933739125025
+      },
+      "falseAlarm": {
+        "value": 0.025,
+        "hits": 1,
+        "total": 40,
+        "low": 0.0044267174077949195,
+        "high": 0.1288165948800778
+      },
+      "spamFlagged": {
+        "value": 0,
+        "hits": 0,
+        "total": 0,
+        "low": 0,
+        "high": 0
+      },
+      "precision": 0.975609756097561,
+      "highOnScams": {
+        "value": 0.2978723404255319,
+        "hits": 14,
+        "total": 47,
+        "low": 0.18651084151016262,
+        "high": 0.439779440463654
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 40,
+        "low": 0,
+        "high": 0.08762453925039232
+      },
+      "msPerMessage": 0.10089885057471491
+    },
+    "dev": {
+      "scams": 298,
+      "hams": 2545,
+      "spams": 329,
+      "detection": {
+        "value": 0.9630872483221476,
+        "hits": 287,
+        "total": 298,
+        "low": 0.9351210234864533,
+        "high": 0.979265860230039
+      },
+      "falseAlarm": {
+        "value": 0.00275049115913556,
+        "hits": 7,
+        "total": 2545,
+        "low": 0.0013329632385886366,
+        "high": 0.005666922513432987
+      },
+      "spamFlagged": {
+        "value": 0.6595744680851063,
+        "hits": 217,
+        "total": 329,
+        "low": 0.6067920592040028,
+        "high": 0.7086733153164897
+      },
+      "precision": 0.9761904761904762,
+      "highOnScams": {
+        "value": 0.48322147651006714,
+        "hits": 144,
+        "total": 298,
+        "low": 0.4270589262785652,
+        "high": 0.5398111141664894
+      },
+      "highOnHams": {
+        "value": 0,
+        "hits": 0,
+        "total": 2545,
+        "low": 0,
+        "high": 0.0015071944839569473
+      },
+      "msPerMessage": 0.07900892181588907
+    }
+  },
+  "modelTestUnique": {
+    "auc": 0.9962312195617279,
+    "brier": 0.004412568042223181,
+    "bins": [
+      {
+        "range": "0.0–0.1",
+        "n": 2390,
+        "meanP": 0.008617129787921594,
+        "observed": 0.0016736401673640166
+      },
+      {
+        "range": "0.1–0.3",
+        "n": 11,
+        "meanP": 0.16755747125633008,
+        "observed": 0.36363636363636365
+      },
+      {
+        "range": "0.3–0.5",
+        "n": 7,
+        "meanP": 0.42187495907584865,
+        "observed": 1
+      },
+      {
+        "range": "0.5–0.7",
+        "n": 7,
+        "meanP": 0.6059162963351596,
+        "observed": 1
+      },
+      {
+        "range": "0.7–0.9",
+        "n": 18,
+        "meanP": 0.8206286635823532,
+        "observed": 1
+      },
+      {
+        "range": "0.9–1.0",
+        "n": 67,
+        "meanP": 0.9811966238203715,
+        "observed": 1
       }
     ]
   },
-  "sms": {
-    "metrics": {
-      "positives": 747,
-      "negatives": 4827,
-      "truePositives": 50,
-      "falseNegatives": 697,
-      "falsePositives": 15,
-      "trueNegatives": 4812,
-      "detectionRate": 0.06693440428380187,
-      "falseAlarmRate": 0.003107520198881293,
-      "precision": 0.7692307692307693,
-      "highOnPositives": 0,
-      "highOnNegatives": 0,
-      "msPerMessage": 0.03651431646932185
-    }
+  "v1HeldOut": {
+    "scams": 40,
+    "hams": 40,
+    "spams": 0,
+    "detection": {
+      "value": 0.95,
+      "hits": 38,
+      "total": 40,
+      "low": 0.834958291820748,
+      "high": 0.9861796228538989
+    },
+    "falseAlarm": {
+      "value": 0,
+      "hits": 0,
+      "total": 40,
+      "low": 0,
+      "high": 0.08762453925039232
+    },
+    "spamFlagged": {
+      "value": 0,
+      "hits": 0,
+      "total": 0,
+      "low": 0,
+      "high": 0
+    },
+    "precision": 1,
+    "highOnScams": {
+      "value": 0.575,
+      "hits": 23,
+      "total": 40,
+      "low": 0.42194800436059987,
+      "high": 0.7149083147518411
+    },
+    "highOnHams": {
+      "value": 0,
+      "hits": 0,
+      "total": 40,
+      "low": 0,
+      "high": 0.08762453925039232
+    },
+    "msPerMessage": 0.20708625000000325
   }
 }
