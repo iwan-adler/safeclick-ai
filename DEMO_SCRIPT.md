@@ -68,3 +68,25 @@ Needs the site deployed over HTTPS and an Android phone with Chrome:
 3. SafeClick opens with the text filled in and a "Shared message received" notice. Press **Analyze**.
 
 Rehearse this first: share sheets vary by phone and messaging app. iOS does not support web share targets.
+
+---
+
+## Voiceover for the recorded video
+
+`npm run demo:record` (with the production server on port 3300) records `demo-video/raw/*.webm`, a 2:48 captioned walkthrough driven by a script. Record your own voice over it, for example in Clipchamp, which is built into Windows. Start each line when the matching step badge appears in the top-right corner:
+
+| Badge | Say |
+| --- | --- |
+| Title | "This is SafeClick AI. I built it because my grandparents get scam messages every week." |
+| Problem | "Scams win through pressure, and they reach the people least able to check them." |
+| 1 | "Drop in a screenshot. The text is read right here on the device. Nothing is uploaded." |
+| 2 | "Instead of a black-box verdict, every warning is explained. Tap a phrase to see why it's risky." |
+| 3 | "Some scams only show up across a whole chat: friendly first, then a request for money." |
+| 4 | "The India pack reads English, Hinglish and Hindi: UPI, KYC, digital arrest." |
+| 5 | "Link X-ray shows the real domain and catches look-alike letters." |
+| 6 | "One tap makes a Hindi warning card for family WhatsApp groups." |
+| 7 | "If you've already paid, the plan starts with India's 1930 helpline and writes a masked report." |
+| 8 | "And this is the screen I made for my grandparents: Hindi, big buttons, read aloud, call family." |
+| 9 | "We measured it honestly: 85% of new scams caught, up from 14%, with 0.3% false alarms." |
+| 10 | "It's honest about limits too. Low risk is never called safe." |
+| How it works | "Everything runs in the browser, it's open source, and it's fully tested." |

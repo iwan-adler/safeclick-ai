@@ -12,6 +12,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "demo:record": "node scripts/record-demo.mjs",
     "test:e2e": "playwright test --project=desktop --project=mobile",
     "screenshots": "playwright test --project=shots-desktop --project=shots-mobile --project=shots-dark",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",

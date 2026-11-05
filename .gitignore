@@ -52,3 +52,6 @@ next-env.d.ts
 
 # launch video output (large media files)
 /brag-output*/
+
+# recorded demo video (npm run demo:record)
+/demo-video/
