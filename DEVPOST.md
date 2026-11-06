@@ -4,7 +4,7 @@ Copy each section into the matching Devpost field. Replace everything in [bracke
 
 **Tagline:** Pause. Understand. Stay safe. A privacy-first scam checker that explains every warning and runs entirely on your device.
 
-**Links:** Try it: [deployed URL] · Code: https://github.com/iwan-adler/safeclick-ai · Video: [YouTube link]
+**Links:** Try it: https://safeclick-ai-mu.vercel.app · Code: https://github.com/iwan-adler/safeclick-ai · Video: [YouTube link]
 
 ## Inspiration
 

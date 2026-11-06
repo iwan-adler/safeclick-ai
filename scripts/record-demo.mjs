@@ -39,7 +39,7 @@ const VOICE = {
   title: "SafeClick AI. Pause. Understand. Stay safe. A privacy-first scam checker that explains every warning, and runs entirely on your device.",
   problem: "Scams don't win because people have never heard of scams. They win through pressure: a deadline, a threat, a friendly stranger. And they reach the people least able to check them.",
   how: "Under the hood, everything runs in the browser: explainable rules plus a tiny machine-learning model, on-device text recognition, and an offline, installable app. Nothing is uploaded, and it is fully tested.",
-  outro: "SafeClick AI is open source on GitHub. Pause. Understand. Stay safe.",
+  outro: "Try it now, the link is in the description. SafeClick AI is open source on GitHub. Pause. Understand. Stay safe.",
 };
 
 /** Small spelling changes so the speech engine pronounces things naturally. */
@@ -360,7 +360,8 @@ await card(`
 await card(`
   <div style="font-size:60px;font-weight:700;letter-spacing:-.02em">SafeClick AI</div>
   <div style="font-size:34px;font-weight:600;color:#c9d4ff;margin-top:10px">Pause. Understand. Stay safe.</div>
-  <div style="font-size:24px;margin-top:30px;color:#e6eaff">Open source: github.com/iwan-adler/safeclick-ai</div>`, 5000, VOICE.outro);
+  <div style="font-size:30px;margin-top:30px;color:#fff;font-weight:600">Try it: safeclick-ai-mu.vercel.app</div>
+  <div style="font-size:24px;margin-top:12px;color:#e6eaff">Open source: github.com/iwan-adler/safeclick-ai</div>`, 6000, VOICE.outro);
 await untilSilent();
 
 const video = page.video();
