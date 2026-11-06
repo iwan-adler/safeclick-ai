@@ -6,7 +6,7 @@
 
 SafeClick AI is a privacy-first scam-awareness companion. Paste a suspicious message, drop in a screenshot, paste a whole chat thread, or share straight from another app on Android, and SafeClick explains, in plain language, which warning signs it contains, why they matter, and what a safer next step looks like. Everything runs in your browser, including a small machine-learning model and screenshot reading: no account, no backend, no AI API, no tracking. It understands Indian scams (UPI, KYC, "digital arrest") in English, Hinglish and Hindi, and its accuracy is [measured on real SMS data with a pre-registered protocol](eval/RESULTS.md): **85% of new real-world scams flagged with 0.3% false alarms**, up from 14% for the first version.
 
-Built for **SafeSpace Hacks**.
+Built for **Next Byte Hacks V5**.
 
 ---
 

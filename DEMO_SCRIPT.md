@@ -73,7 +73,7 @@ Rehearse this first: share sheets vary by phone and messaging app. iOS does not 
 
 ## Voiceover for the recorded video
 
-`npm run demo:record` (with the production server on port 3300) records `demo-video/raw/*.webm`, a 2:48 captioned walkthrough driven by a script. Record your own voice over it, for example in Clipchamp, which is built into Windows. Start each line when the matching step badge appears in the top-right corner:
+`npm run demo:record` (with the production server on port 3300) records `demo-video/raw/*.webm`, a captioned walkthrough of about 3 minutes driven by a script. Record your own voice over it, for example in Clipchamp, which is built into Windows. Start each line when the matching step badge appears in the top-right corner:
 
 | Badge | Say |
 | --- | --- |

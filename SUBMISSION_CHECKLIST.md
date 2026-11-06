@@ -1,75 +1,62 @@
-# SafeSpace Hacks: Submission Checklist
+# Next Byte Hacks V5: Submission Checklist
 
-> **Final submission deadline: November 22, 2026, 5:00 PM Eastern Time.**
+> **Deadline: November 8, 2026, 3:30 AM IST, which is November 7, 2026, 5:00 PM ET.** Submit on Devpost: https://next-byte-hacks-v5.devpost.com/
 
-Items marked ✅ are done and verified in the repository. Items marked ⬜ need a human to complete them. Nothing below has been filled in with invented links or results.
+Items marked ✅ are done and verified in the repository. Items marked ⬜ need a human. Nothing below is filled in with invented links, feedback or results. The page text is drafted in [DEVPOST.md](DEVPOST.md).
 
-## Project
+## What the rules require
 
-- ✅ **Name:** SafeClick AI
-- ✅ **Tagline:** Pause. Understand. Stay Safe.
-- ✅ **Short pitch:** A privacy-first scam checker that works the way scams actually arrive: as screenshots, chat threads and texts shared from your phone. It explains every warning sign, spots the trust-then-request pattern behind romance and investment scams, publishes its measured accuracy, and never lets a message leave your device.
+| Requirement | Status |
+| --- | --- |
+| Working project built during the hackathon period (Oct 6 – Nov 8) | ✅ Started on 2026-10-20 from the `create-next-app` scaffold; see README → "What existed before the challenge" |
+| Title and description | ✅ Drafted in [DEVPOST.md](DEVPOST.md). ⬜ Rewrite "Inspiration" in your own words |
+| List of technologies | ✅ DEVPOST.md → Built with |
+| Screenshots | ✅ `screenshots/`. Suggested: `simple-verdict.png`, `shots-desktop-02-analyze-result.png`, `shots-desktop-02b-conversation.png`, `shots-desktop-03b-link-xray.png`, `shots-desktop-02c-warning-card-hi.png` |
+| Demo video, 2–5 minutes: what it does, how it works, the problem it solves | ✅ Captioned walkthrough of about 3 minutes from `npm run demo:record` (see [DEMO_SCRIPT.md](DEMO_SCRIPT.md)). ⬜ Add your voiceover and upload it to YouTube (unlisted is fine) |
+| Public GitHub repository with setup instructions | ✅ https://github.com/iwan-adler/safeclick-ai (README → Setup) |
+| Licensing and platform rules | ✅ Dependencies and datasets credited in README → Credits (datasets CC BY 4.0) |
+| AI use within tool policies | ✅ Disclosed in README and DEVPOST.md |
+| Team info, challenges, what you learned, future plans | ✅ Drafted in DEVPOST.md. ⬜ Add team names |
 
-## Problem and solution
+## Scored criteria (25% each), and where to show them
 
-- ✅ **Problem:** Scams succeed by creating pressure (deadlines, threats, prizes) or by slowly building trust. They arrive as screenshots and chats on phones. People need a quick, understandable way to check a message in the moment without uploading private conversations to a third party.
-- ✅ **Solution:** A browser-only analyzer with explainable rules that highlights the exact words behind each warning and offers next steps. It reads screenshots on-device, analyzes whole conversations for escalation, receives shares from other apps on Android, and works offline, plus fictional examples, practice scenarios and a safety guide.
-
-## Technologies
-
-- ✅ Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, Lucide React
-- ✅ tesseract.js 7 (self-hosted WebAssembly OCR), Web App Manifest with Android share target
-- ✅ Vitest (unit tests), Playwright (desktop + mobile browser tests), evaluation harness (`npm run eval`)
-- ✅ Service worker for offline pages and on-device share handling; Content-Security-Policy with `connect-src 'self'`
-- ✅ No backend logic, database, AI API, analytics or accounts
-
-## Challenges and lessons learned (draft; edit in your own words)
-
-- **Explainability over cleverness.** Rules had to point at exact words, so offsets are preserved through analysis, rendering and the conversation timeline.
-- **Avoiding false alarms.** Genuine OTP messages say "do not share this code". Request-verb and protective-wording checks keep those at a score of 0, and the measured false-alarm rate on 2,393 held-out genuine texts is 0.3%.
-- **Seeing patterns across messages.** Single-message rules can't see a slow romance or investment scam. Conversation mode tracks when the first request appears after request-free, friendly messages.
-- **Private OCR.** tesseract.js loads its engine and model from a CDN by default. We self-host them, disable its IndexedDB cache, and verify in a browser test that no external request is made.
-- **Measuring honestly.** We froze a held-out set before the first run and did not tune the rules to it, even after seeing clear misses. The misses became the roadmap instead.
-- **Offline that actually works.** The service worker precaches each page's hashed scripts, verified by an automated offline browser test.
+- **Innovation & creativity:**
+  - Simple mode for elders in Hindi.
+  - Conversation mode's trust-then-request detection.
+  - Explanations word by word instead of a verdict.
+  - Link X-ray with look-alike characters.
+- **Technical complexity:**
+  - On-device logistic-regression model and rules engine.
+  - WebAssembly OCR.
+  - PWA share target and offline service worker.
+  - Pre-registered evaluation with confidence intervals ([eval/RESULTS.md](eval/RESULTS.md)).
+- **Functionality & execution:**
+  - 260 unit tests and 42 browser tests (desktop + mobile), plus an axe-core WCAG 2.1 AA audit, all green in CI.
+  - ⬜ A live deployed link for judges to try.
+- **Presentation & clarity:**
+  - The demo video with your voice.
+  - A clear Devpost page.
+  - Screenshots.
 
 ## Links and media
 
-- ⬜ **Demo link:** deploy (see README → Deployment), then paste the URL here.
-- ⬜ **Source repository:** push to a public repository, then paste the URL here.
-- ⬜ **Screenshots:** run `npm run build && npm run screenshots`, review `screenshots/`, and upload your picks. Includes screenshot reading, conversation mode, examples, learn, guide and privacy (with accuracy) at desktop and mobile sizes.
-- ✅ **Launch video (20s):** generated locally in `brag-output/brag.mp4` with a poster frame and `share-copy.txt` (not committed; upload it to YouTube/Devpost).
-- ✅ **Pitch deck:** 12 slides with speaker notes, made as a private Claude artifact. Share it from its Share menu; fill in `[demo link]` and `[team names]` on the last slide.
-- ⬜ **Demo video (optional, longer):** record using [DEMO_SCRIPT.md](DEMO_SCRIPT.md) (about 3 minutes), with [`demo/sample-sms.png`](demo/sample-sms.png).
+- ⬜ **Live demo:** deploy on Vercel (README → Deployment), then add the URL to Devpost, the README and DEVPOST.md.
+- ✅ **Source:** https://github.com/iwan-adler/safeclick-ai
+- ⬜ **Video:** upload `demo-video/safeclick-demo.mp4` (with voiceover) to YouTube and paste the link.
+- ✅ **Short launch video (20s):** `brag-output/brag.mp4`, optional extra for social posts.
 
-## Safer outcomes to demonstrate (all covered by tests)
+## Safer outcomes shown in the video (all covered by tests)
 
-- ✅ **Screenshot:** the sample SMS image is read on-device and rated *High concern*; the user checks the parcel in the official app instead of paying.
-- ✅ **Conversation:** the "wrong number" chat is flagged for trust-then-request escalation; the user stops before depositing money.
-- ✅ **Internship:** the upfront-fee offer is *High concern* with "registration fee" and "Reply only to this number" highlighted.
+- ✅ **Screenshot:** the sample SMS image is read on-device and rated *High concern*.
+- ✅ **Conversation:** the "wrong number" chat is flagged for trust-then-request escalation.
+- ✅ **India:** a Hinglish electricity cut-off threat is flagged.
+- ✅ **Simple mode:** a pasted OTP scam turns the screen red with "रुकिए! यह धोखा (स्कैम) लगता है"; an ordinary message is never called "safe".
+- ✅ **Limitation:** the innocent opening of a slow scam scores *Lower apparent risk*, and the UI says that is not a guarantee.
 
-- ✅ **Simple mode:** a pasted OTP scam turns the whole screen red with "रुकिए! यह धोखा (स्कैम) लगता है" and three plain steps; an ordinary message is never called "safe".
-
-## Limitation to demonstrate
-
-- ✅ The innocent opening message of a slow scam ("Hi! Is this Rahul? We met at the alumni meetup…") scores *Lower apparent risk* with both rules and model. The UI says a low score is not a guarantee, and conversation mode is the answer once the request appears. Covered by a unit test.
-
-## Evidence for judges
-
-- ✅ [eval/RESULTS.md](eval/RESULTS.md): measured detection and false-alarm rates, every missed scam, caveats
-- ✅ Automated tests: unit tests for every rule and demo claim; browser tests for the full journey, offline use, screenshot reading, sharing and privacy guarantees
-- ⬜ **Real user feedback:** have 5–10 classmates try the deployed app and record what they actually said (with permission). Do not paraphrase into invented quotes.
-
-## Credits and AI disclosure
-
-- ✅ Open-source and dataset credits listed in README → Credits.
-- ✅ AI-assisted development disclosure in README (built with Claude Code, Claude Opus 5.5).
-- ✅ Pre-existing vs. challenge-built work described in README.
-- ⬜ Add team member names and roles to the submission form and README.
-
-## Final verification (re-run before submitting)
+## Before submitting
 
 - ⬜ `npm run check` (typecheck, lint, unit tests, build)
 - ⬜ `npm run test:e2e`
-- ⬜ `npm run eval` and update the numbers in README/DEMO_SCRIPT if anything changed
-- ⬜ On an Android phone: install the deployed app and share a fictional message into it once
-- ⬜ Submit before **November 22, 2026, 5:00 PM ET**
+- ⬜ Open the deployed link on a phone and check one message.
+- ⬜ Optional, but strong: an honest line or photo from a real person (for example a grandparent) using simple mode, shared with their permission. Never invent quotes.
+- ⬜ Submit before **Nov 7, 5:00 PM ET / Nov 8, 3:30 AM IST**.

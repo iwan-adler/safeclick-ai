@@ -72,7 +72,7 @@ export function Sidebar() {
           <ThemeToggle />
         </div>
         <p className="mt-2.5 px-1 text-[11px] leading-relaxed text-slate-400">
-          No account, no tracking. Built for SafeSpace Hacks as an educational tool.
+          No account, no tracking. An educational tool, not a security product.
         </p>
       </div>
     </aside>
