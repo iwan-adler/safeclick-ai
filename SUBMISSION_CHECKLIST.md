@@ -32,7 +32,7 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
   - Pre-registered evaluation with confidence intervals ([eval/RESULTS.md](eval/RESULTS.md)).
 - **Functionality & execution:**
   - 260 unit tests and 42 browser tests (desktop + mobile), plus an axe-core WCAG 2.1 AA audit, all green in CI.
-  - ⬜ A live deployed link for judges to try.
+  - ✅ A live link for judges to try: https://safeclick-ai-mu.vercel.app
 - **Presentation & clarity:**
   - The demo video with your voice.
   - A clear Devpost page.
@@ -55,8 +55,8 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 
 ## Before submitting
 
-- ⬜ `npm run check` (typecheck, lint, unit tests, build)
-- ⬜ `npm run test:e2e`
+- ✅ `npm run check` (typecheck, lint, 260 unit tests, build): passed on 2026-11-06
+- ✅ `npm run test:e2e`: 84 passed on 2026-11-06
 - ⬜ Open the deployed link on a phone and check one message.
 - ⬜ Optional, but strong: an honest line or photo from a real person (for example a grandparent) using simple mode, shared with their permission. Never invent quotes.
 - ⬜ Submit before **Nov 7, 5:00 PM ET / Nov 8, 3:30 AM IST**.
