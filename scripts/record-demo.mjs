@@ -1,9 +1,15 @@
 /**
- * Records a captioned demo walkthrough of the real app (about 2:45) with
- * Playwright's built-in screen recorder.
+ * Records a captioned, narrated demo walkthrough of the real app (about 3
+ * minutes) with Playwright's built-in screen recorder.
  *
  *   npm run build && npm run start -- -p 3300   (in another terminal)
- *   node scripts/record-demo.mjs                 -> demo-video/raw/*.webm
+ *   node scripts/record-demo.mjs                 -> demo-video/safeclick-demo.mp4
+ *
+ * Narration: on Windows every caption (and each title card's VOICE line) is
+ * spoken by the system's default text-to-speech voice. Lines are synthesized
+ * before recording, and the script waits for each line to finish before the
+ * next caption, so speech never overlaps. ffmpeg (FFMPEG env var) then mixes
+ * the speech onto the video. DEMO_VOICE=0 records a silent video instead.
  *
  * Everything shown is the live production build driven by a script; captions
  * and the pointer are an overlay added only for the recording. The phone scene
@@ -11,16 +17,73 @@
  * frame-ancestors header for the recording context only.
  */
 import { chromium } from "@playwright/test";
-import { mkdirSync, rmSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const BASE = process.env.DEMO_URL ?? "http://localhost:3300";
 const OUT = path.resolve("demo-video/raw");
 const SIZE = { width: 1280, height: 720 };
 const FONT = `'Segoe UI', 'Nirmala UI', system-ui, sans-serif`;
 
+const VOICE_DIR = path.resolve("demo-video/voice");
+const FINAL = path.resolve("demo-video/safeclick-demo.mp4");
+const FFMPEG =
+  process.env.FFMPEG ??
+  ["brag-output/work/tools/node_modules/@ffmpeg-installer/win32-x64/ffmpeg.exe"].map((f) => path.resolve(f)).find(existsSync);
+const VOICE_ON = process.env.DEMO_VOICE !== "0" && process.platform === "win32";
+
+/** Narration for the title cards (they have no caption). */
+const VOICE = {
+  title: "SafeClick AI. Pause. Understand. Stay safe. A privacy-first scam checker that explains every warning, and runs entirely on your device.",
+  problem: "Scams don't win because people have never heard of scams. They win through pressure: a deadline, a threat, a friendly stranger. And they reach the people least able to check them.",
+  how: "Under the hood, everything runs in the browser: explainable rules plus a tiny machine-learning model, on-device text recognition, and an offline, installable app. Nothing is uploaded, and it is fully tested.",
+  outro: "SafeClick AI is open source on GitHub. Pause. Understand. Stay safe.",
+};
+
+/** Small spelling changes so the speech engine pronounces things naturally. */
+const speakable = (text) =>
+  text
+    .replace(/SafeClick/g, "Safe Click")
+    .replace(/\b1930\b/g, "1 9 3 0")
+    .replace(/\bOCR\b/g, "O C R")
+    .replace(/\bUPI\b/g, "U P I")
+    .replace(/\bKYC\b/g, "K Y C")
+    .replace(/\bOTP\b/g, "O T P")
+    .replace(/\$(\d+)/g, "$1 dollar")
+    .replace(/о/g, "o")
+    .replace(/[“”]/g, "")
+    .replace(/…/g, ",");
+
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
+
+// Every caption in this file, plus the card lines, synthesized up front.
+const voiceFiles = new Map();
+if (VOICE_ON) {
+  const source = readFileSync(fileURLToPath(import.meta.url), "utf8");
+  const lines = [...source.matchAll(/say\("[^"]*",\s*"((?:[^"\\]|\\.)+)"/g)].map((m) => JSON.parse(`"${m[1]}"`));
+  const all = [...new Set([...lines, ...Object.values(VOICE)])];
+  rmSync(VOICE_DIR, { recursive: true, force: true });
+  mkdirSync(VOICE_DIR, { recursive: true });
+  const jobs = all.map((text, i) => ({ text: speakable(text), file: path.join(VOICE_DIR, `line${String(i).padStart(2, "0")}.wav`) }));
+  writeFileSync(path.join(VOICE_DIR, "jobs.json"), JSON.stringify(jobs), "utf8");
+  const ps = [
+    "Add-Type -AssemblyName System.Speech",
+    `$jobs = Get-Content -Raw -Encoding UTF8 '${path.join(VOICE_DIR, "jobs.json")}' | ConvertFrom-Json`,
+    "$fmt = New-Object System.Speech.AudioFormat.SpeechAudioFormatInfo(22050, [System.Speech.AudioFormat.AudioBitsPerSample]::Sixteen, [System.Speech.AudioFormat.AudioChannel]::Mono)",
+    "foreach ($j in $jobs) { $s = New-Object System.Speech.Synthesis.SpeechSynthesizer; $s.Rate = 1; $s.SetOutputToWaveFile($j.file, $fmt); $s.Speak($j.text); $s.Dispose() }",
+  ].join("\n");
+  const psFile = path.join(VOICE_DIR, "synth.ps1");
+  writeFileSync(psFile, "﻿" + ps, "utf8");
+  execFileSync("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", psFile], { stdio: "inherit" });
+  all.forEach((text, i) => {
+    const { file } = jobs[i];
+    voiceFiles.set(text, { file, ms: ((statSync(file).size - 44) / (22050 * 2)) * 1000 });
+  });
+  console.log(`Synthesized ${all.length} narration lines`);
+}
 
 let caption = { step: "", text: "" };
 
@@ -73,11 +136,29 @@ await context.route(`${BASE}/simple**`, async (route) => {
 });
 
 const page = await context.newPage();
+const t0 = Date.now();
 const wait = (ms) => page.waitForTimeout(ms);
 
+// Narration timeline: each spoken line's start in the video, in ms.
+const spoken = [];
+let speechEnd = 0;
+async function untilSilent() {
+  const left = speechEnd - Date.now();
+  if (left > 0) await wait(left);
+}
+function speak(text) {
+  const voice = voiceFiles.get(text);
+  if (!voice) return 0;
+  spoken.push({ at: Date.now() - t0, file: voice.file });
+  speechEnd = Date.now() + voice.ms + 350;
+  return voice.ms;
+}
+
 async function say(step, text, holdMs = 0) {
+  if (text) await untilSilent();
   caption = { step, text };
   await page.evaluate((c) => window.__demoSet?.(c), caption).catch(() => {});
+  if (text) speak(text);
   if (holdMs) await wait(holdMs);
 }
 
@@ -108,13 +189,15 @@ async function smoothScrollTo(locator, offset = 90) {
   await wait(900);
 }
 
-async function card(html, holdMs) {
+async function card(html, holdMs, voice) {
+  await untilSilent();
   caption = { step: "", text: "" };
   await page.goto("about:blank");
   await page.setContent(`<!doctype html><html><body style="margin:0;height:100vh;display:grid;place-items:center;
     background:radial-gradient(120% 90% at 0% 0%,#2a3f9e 0%,#0b1228 60%);color:#fff;font-family:${FONT}">
     <div style="max-width:1000px;padding:0 60px">${html}</div></body></html>`);
-  await wait(holdMs);
+  const ms = voice ? speak(voice) : 0;
+  await wait(Math.max(holdMs, ms + 500));
 }
 
 const analyze = () => page.getByRole("button", { name: "Analyze", exact: true });
@@ -126,14 +209,14 @@ await card(`
     <div style="font-size:64px;font-weight:700;letter-spacing:-.02em">SafeClick AI</div>
   </div>
   <div style="font-size:34px;font-weight:600;color:#c9d4ff">Pause. Understand. Stay safe.</div>
-  <div style="font-size:24px;margin-top:22px;color:#e6eaff;line-height:1.45">A privacy-first scam checker that explains every warning<br>and runs entirely on your device.</div>`, 5000);
+  <div style="font-size:24px;margin-top:22px;color:#e6eaff;line-height:1.45">A privacy-first scam checker that explains every warning<br>and runs entirely on your device.</div>`, 5000, VOICE.title);
 
 // --- Problem ---
 await card(`
   <div style="font-size:22px;font-weight:600;color:#9fb0ff;text-transform:uppercase;letter-spacing:.12em;margin-bottom:18px">The problem</div>
   <div style="font-size:40px;font-weight:650;line-height:1.3">Scams don't win because people have never heard of scams.</div>
   <div style="font-size:30px;margin-top:22px;line-height:1.45;color:#e6eaff">They win through <b>pressure</b>: a deadline, a threat, a friendly stranger.<br>
-  And they arrive as screenshots and chats, often to people who are least able to check them.</div>`, 7500);
+  And they arrive as screenshots and chats, often to people who are least able to check them.</div>`, 7500, VOICE.problem);
 
 // --- Screenshot check ---
 await page.goto(BASE);
@@ -272,14 +355,58 @@ await card(`
     <div><b style="color:#fff">Works offline.</b> Installable PWA; the safety guide is cached for emergencies.</div>
     <div><b style="color:#fff">Tested.</b> 260 unit tests, 42 browser tests on desktop and mobile, and an axe-core WCAG 2.1 AA audit.</div>
     <div><b style="color:#fff">Stack.</b> Next.js, React, TypeScript, Tailwind CSS, tesseract.js, Playwright, Vitest.</div>
-  </div>`, 10000);
+  </div>`, 10000, VOICE.how);
 
 await card(`
   <div style="font-size:60px;font-weight:700;letter-spacing:-.02em">SafeClick AI</div>
   <div style="font-size:34px;font-weight:600;color:#c9d4ff;margin-top:10px">Pause. Understand. Stay safe.</div>
-  <div style="font-size:24px;margin-top:30px;color:#e6eaff">Open source: github.com/iwan-adler/safeclick-ai</div>`, 5000);
+  <div style="font-size:24px;margin-top:30px;color:#e6eaff">Open source: github.com/iwan-adler/safeclick-ai</div>`, 5000, VOICE.outro);
+await untilSilent();
 
 const video = page.video();
 await context.close();
 await browser.close();
-console.log(await video.path());
+const raw = await video.path();
+console.log(raw);
+
+writeFileSync(path.join(OUT, "narration.json"), JSON.stringify(spoken));
+
+if (!FFMPEG) {
+  console.log("ffmpeg not found (set FFMPEG); the silent recording is above.");
+} else {
+  // Lay every spoken line onto one 22.05 kHz mono track at its start time.
+  const RATE = 22050;
+  const clips = spoken.map((s) => {
+    const wav = readFileSync(s.file);
+    const data = wav.indexOf("data", 12);
+    return { offset: Math.round((s.at / 1000) * RATE) * 2, pcm: wav.subarray(data + 8) };
+  });
+  const track = Buffer.alloc(Math.max(0, ...clips.map((c) => c.offset + c.pcm.length)));
+  for (const c of clips) c.pcm.copy(track, c.offset);
+  const header = Buffer.alloc(44);
+  header.write("RIFF", 0);
+  header.writeUInt32LE(36 + track.length, 4);
+  header.write("WAVEfmt ", 8);
+  header.writeUInt32LE(16, 16);
+  header.writeUInt16LE(1, 20);
+  header.writeUInt16LE(1, 22);
+  header.writeUInt32LE(RATE, 24);
+  header.writeUInt32LE(RATE * 2, 28);
+  header.writeUInt16LE(2, 32);
+  header.writeUInt16LE(16, 34);
+  header.write("data", 36);
+  header.writeUInt32LE(track.length, 40);
+  const narration = path.join(OUT, "narration.wav");
+  writeFileSync(narration, Buffer.concat([header, track]));
+
+  execFileSync(
+    FFMPEG,
+    [
+      "-hide_banner", "-loglevel", "error", "-y", "-i", raw,
+      ...(spoken.length ? ["-i", narration, "-map", "0:v", "-map", "1:a", "-c:a", "aac", "-b:a", "160k", "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "44100"] : []),
+      "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p", "-movflags", "+faststart", FINAL,
+    ],
+    { stdio: "inherit" },
+  );
+  console.log(`${FINAL} (${spoken.length} narrated lines)`);
+}

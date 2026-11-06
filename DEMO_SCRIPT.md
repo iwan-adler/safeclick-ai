@@ -73,7 +73,10 @@ Rehearse this first: share sheets vary by phone and messaging app. iOS does not 
 
 ## Voiceover for the recorded video
 
-`npm run demo:record` (with the production server on port 3300) records `demo-video/raw/*.webm`, a captioned walkthrough of about 3 minutes driven by a script. Record your own voice over it, for example in Clipchamp, which is built into Windows. Start each line when the matching step badge appears in the top-right corner:
+`npm run demo:record`, with the production server running on port 3300, records `demo-video/safeclick-demo.mp4`: a narrated, captioned walkthrough of about 3½ minutes, driven by a script.
+- **Narration:** on Windows, the system's default text-to-speech voice reads every caption. Each line finishes before the next caption appears.
+- **Silent version:** use `DEMO_VOICE=0` for a video without narration.
+- **Your own voice:** a human voice is warmer. To use yours, record over the silent version (for example in Clipchamp) and start each line when the matching step badge appears in the top-right corner:
 
 | Badge | Say |
 | --- | --- |
