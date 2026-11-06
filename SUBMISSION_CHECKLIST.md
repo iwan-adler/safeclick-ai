@@ -12,7 +12,7 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 | Title and description | ✅ Drafted in [DEVPOST.md](DEVPOST.md). ⬜ Rewrite "Inspiration" in your own words |
 | List of technologies | ✅ DEVPOST.md → Built with |
 | Screenshots | ✅ `screenshots/`. Suggested: `simple-verdict.png`, `shots-desktop-02-analyze-result.png`, `shots-desktop-02b-conversation.png`, `shots-desktop-03b-link-xray.png`, `shots-desktop-02c-warning-card-hi.png` |
-| Demo video, 2–5 minutes: what it does, how it works, the problem it solves | ✅ Narrated, captioned walkthrough (3:33) from `npm run demo:record` (see [DEMO_SCRIPT.md](DEMO_SCRIPT.md)). ⬜ Upload it to YouTube (unlisted is fine); optionally replace the computer voice with your own |
+| Demo video, 2–5 minutes: what it does, how it works, the problem it solves | ✅ Narrated, captioned walkthrough (3:33) from `npm run demo:record` (see [DEMO_SCRIPT.md](DEMO_SCRIPT.md)). ✅ On YouTube: https://youtu.be/HJ9Df2gPYbw |
 | Public GitHub repository with setup instructions | ✅ https://github.com/iwan-adler/safeclick-ai (README → Setup) |
 | Licensing and platform rules | ✅ Dependencies and datasets credited in README → Credits (datasets CC BY 4.0) |
 | AI use within tool policies | ✅ Disclosed in README and DEVPOST.md |
@@ -42,7 +42,7 @@ Items marked ✅ are done and verified in the repository. Items marked ⬜ need 
 
 - ✅ **Live demo:** https://safeclick-ai-mu.vercel.app (checked: screenshot reading, analysis and simple mode work, with no requests to other sites)
 - ✅ **Source:** https://github.com/iwan-adler/safeclick-ai
-- ⬜ **Video:** upload `demo-video/safeclick-demo.mp4` (already narrated) to YouTube (title, description and chapters in [YOUTUBE.md](YOUTUBE.md)) and paste the link.
+- ✅ **Video:** https://youtu.be/HJ9Df2gPYbw (3:33, narrated; text in [YOUTUBE.md](YOUTUBE.md))
 - ✅ **Short launch video (20s):** `brag-output/brag.mp4`, optional extra for social posts.
 
 ## Safer outcomes shown in the video (all covered by tests)
